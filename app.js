@@ -108,6 +108,23 @@ app.patch("/api/v1/tours/:id", (req, res) => {
 	});
 });
 
+//////////////////////////////////////////////////////////- DELETE TOUR ROUTE
+app.delete("/api/v1/tours/:id", (req, res) => {
+	// DOES => Checks if ID is greater than number of tours, if true, ID is invalid and return 404 error
+	if (req.params.id * 1 > tours.length) {
+		return res.status(404).json({
+			status: "fail",
+			message: "Invalid ID",
+		});
+	}
+
+	// Status is 204 - No content
+	res.status(204).json({
+		status: "success",
+		data: null,
+	});
+});
+
 /////////////////////////////////////////////////////////// START SERVER
 const port = 8000;
 app.listen(port, () => {
