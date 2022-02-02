@@ -2,11 +2,13 @@ const fs = require("fs");
 const express = require("express");
 const { report } = require("process");
 const { del } = require("express/lib/application");
+const morgan = require("morgan"); // HTTP request logger middleware for node.js
 
 const app = express();
 
 /////////////////////////////////////////////////////////// MIDDLEWARES
 // DOES => Adds middleware that can modify incoming request data
+app.use(morgan("dev"));
 app.use(express.json());
 app.use((req, res, next) => {
 	console.log("Hello from the middleware 👋");
@@ -23,7 +25,8 @@ const tours = JSON.parse(
 	fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
-/////////////////////////////////////////////////////////// GET ALL TOURS ROUTE
+/////////////////////////////////////////////////////////// ROUTE HANDLERS
+//////////////////////////////////////////// GET ALL TOURS ROUTE
 const getAllTours = (req, res) => {
 	// Route handler sends back all tours when user hits tours resource URL
 	console.log(req.requestTime);
@@ -36,7 +39,7 @@ const getAllTours = (req, res) => {
 	});
 };
 
-/////////////////////////////////////////////////////////// GET TOUR BY ID ROUTE
+//////////////////////////////////////////// GET TOUR BY ID ROUTE
 const getTourById = (req, res) => {
 	// Route handler sends back all tours when user hits tours resource URL
 	// DOES => Converts ID string into number
@@ -61,7 +64,7 @@ const getTourById = (req, res) => {
 	});
 };
 
-/////////////////////////////////////////////////////////// CREATE TOURS ROUTE
+//////////////////////////////////////////// CREATE TOURS ROUTE
 
 const createTour = (req, res) => {
 	// Route handler sends data from client to the server
@@ -88,7 +91,7 @@ const createTour = (req, res) => {
 	);
 };
 
-/////////////////////////////////////////////////////////// UPDATE TOUR ROUTE
+//////////////////////////////////////////// UPDATE TOUR ROUTE
 const updateTour = (req, res) => {
 	// DOES => Checks if ID is greater than number of tours, if true, ID is invalid and return 404 error
 	if (req.params.id * 1 > tours.length) {
@@ -105,7 +108,7 @@ const updateTour = (req, res) => {
 		},
 	});
 };
-//////////////////////////////////////////////////////////- DELETE TOUR ROUTE
+///////////////////////////////////////////- DELETE TOUR ROUTE
 const deleteTour = (req, res) => {
 	// DOES => Checks if ID is greater than number of tours, if true, ID is invalid and return 404 error
 	if (req.params.id * 1 > tours.length) {
@@ -122,22 +125,62 @@ const deleteTour = (req, res) => {
 	});
 };
 
-/////////////////////////////////////////////////////////// APP ROUTINGS
+//////////////////////////////////////////// GET ALL USERS
+const getAllUsers = (req, res) => {
+	res.status(500).json({
+		status: "error",
+		message: "This route is not yet defined.",
+	});
+};
+
+//////////////////////////////////////////// GET USER BY ID
+const getUserById = (req, res) => {
+	res.status(500).json({
+		status: "error",
+		message: "This route is not yet defined.",
+	});
+};
+
+//////////////////////////////////////////// CREATE USER
+const createUser = (req, res) => {
+	res.status(500).json({
+		status: "error",
+		message: "This route is not yet defined.",
+	});
+};
+
+//////////////////////////////////////////// UPDATE USER
+const updateUser = (req, res) => {
+	res.status(500).json({
+		status: "error",
+		message: "This route is not yet defined.",
+	});
+};
+
+///////////////////////////////////////////- DELETE USER
+const deleteUser = (req, res) => {
+	res.status(500).json({
+		status: "error",
+		message: "This route is not yet defined.",
+	});
+};
+
+/////////////////////////////////////////////////////////// ROUTES
 // DOES => Create routing to determine how app responds to client request (url & http method)
-// app.get("/api/v1/tours", getAllTours);
-// app.get("/api/v1/tours/:id", getTourById);
-// app.post("/api/v1/tours", createTour);
-// app.patch("/api/v1/tours/:id", updateTour);
-// app.delete("/api/v1/tours/:id", deleteTour);
-// SAME AS => Code refactored below
 
-app.route("/api/v1/tours").get(getAllTours).post(createTour);
-app
-	.route("/api/v1/tours/:id")
-	.get(getTourById)
-	.patch(updateTour)
-	.delete(deleteTour);
+const tourRouter = express.Router();
+const userRouter = express.Router();
 
+//////////////////////////////////////////// TOUR ROUTES
+tourRouter.route("/").get(getAllTours).post(createTour);
+tourRouter.route("/:id").get(getTourById).patch(updateTour).delete(deleteTour);
+
+//////////////////////////////////////////// USER ROUTES
+userRouter.route("/").get(getAllUsers).post(createUser);
+userRouter.route("/:id").get(getUserById).patch(updateUser).delete(deleteUser);
+
+app.use("/api/v1/tours", tourRouter);
+app.use("/api/v1/users", userRouter);
 /////////////////////////////////////////////////////////// START SERVER
 const port = 8000;
 app.listen(port, () => {
