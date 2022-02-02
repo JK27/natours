@@ -5,6 +5,8 @@ const tours = JSON.parse(
 	fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 );
 
+/////////////////////////////////////////////////////////// MIDDLEWARE
+//////////////////////////////////////////// CHECK ID
 // DOES => Checks if ID is greater than number of tours, if true, ID is invalid and return 404 error
 exports.checkId = (req, res, next, val) => {
 	console.log(`Tour id is ${val}`);
@@ -12,6 +14,18 @@ exports.checkId = (req, res, next, val) => {
 		return res.status(404).json({
 			status: "fail",
 			message: "Invalid ID",
+		});
+	}
+	next();
+};
+
+//////////////////////////////////////////// CHECK BODY
+// DOES => Checks if body contains tour name and price. If missing either, return 400 error
+exports.checkBody = (req, res, next) => {
+	if (!req.body.name || !req.body.price) {
+		return res.status(400).json({
+			status: "fail",
+			message: "Missing name or price.",
 		});
 	}
 	next();
