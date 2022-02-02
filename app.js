@@ -1,5 +1,6 @@
 const fs = require("fs");
 const express = require("express");
+const { report } = require("process");
 
 const app = express();
 
@@ -25,7 +26,7 @@ const tours = JSON.parse(
 	fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
-/////////////////////////////////////////////////////////// GET TOURS ROUTE
+/////////////////////////////////////////////////////////// GET ALL TOURS ROUTE
 // DOES => Create routing to determine how app responds to client request (url & http method)
 app.get("/api/v1/tours", (req, res) => {
 	// Route handler sends back all tours when user hits tours resource URL
@@ -38,8 +39,32 @@ app.get("/api/v1/tours", (req, res) => {
 	});
 });
 
-/////////////////////////////////////////////////////////// POST TOURS ROUTE
+/////////////////////////////////////////////////////////// GET TOUR BY ID ROUTE
+app.get("/api/v1/tours/:id", (req, res) => {
+	// Route handler sends back all tours when user hits tours resource URL
+	// DOES => Converts ID string into number
+	const id = req.params.id * 1;
+	// DOES => Searches for element whose ID is equal to the ID specified in the params
+	const tour = tours.find(el => el.id === id);
 
+	// DOES => If ID in params doesn't match tour ID, then return 404 error
+	// if (id > tours.length) {
+	if (!tour) {
+		return res.status(404).json({
+			status: "fail",
+			message: "Invalid ID",
+		});
+	}
+
+	res.status(200).json({
+		status: "success",
+		data: {
+			tour,
+		},
+	});
+});
+
+/////////////////////////////////////////////////////////// POST TOURS ROUTE
 app.post("/api/v1/tours", (req, res) => {
 	// Route handler sends data from client to the server
 	// console.log(req.body);
@@ -65,6 +90,25 @@ app.post("/api/v1/tours", (req, res) => {
 	);
 });
 
+/////////////////////////////////////////////////////////// UPDATE TOUR ROUTE
+app.patch("/api/v1/tours/:id", (req, res) => {
+	// DOES => Checks if ID is greater than number of tours, if true, ID is invalid and return 404 error
+	if (req.params.id * 1 > tours.length) {
+		return res.status(404).json({
+			status: "fail",
+			message: "Invalid ID",
+		});
+	}
+
+	res.status(200).json({
+		status: "success",
+		data: {
+			tour: "<Updated tour here...>",
+		},
+	});
+});
+
+/////////////////////////////////////////////////////////// START SERVER
 const port = 8000;
 app.listen(port, () => {
 	console.log(`App running on port ${port}...`);
