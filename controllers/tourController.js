@@ -5,6 +5,18 @@ const tours = JSON.parse(
 	fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 );
 
+// DOES => Checks if ID is greater than number of tours, if true, ID is invalid and return 404 error
+exports.checkId = (req, res, next, val) => {
+	console.log(`Tour id is ${val}`);
+	if (req.params.id * 1 > tours.length) {
+		return res.status(404).json({
+			status: "fail",
+			message: "Invalid ID",
+		});
+	}
+	next();
+};
+
 /////////////////////////////////////////////////////////// ROUTE HANDLERS
 //////////////////////////////////////////// GET ALL TOURS ROUTE
 exports.getAllTours = (req, res) => {
@@ -26,15 +38,6 @@ exports.getTourById = (req, res) => {
 	const id = req.params.id * 1;
 	// DOES => Searches for element whose ID is equal to the ID specified in the params
 	const tour = tours.find(el => el.id === id);
-
-	// DOES => If ID in params doesn't match tour ID, then return 404 error
-	// if (id > tours.length) {
-	if (!tour) {
-		return res.status(404).json({
-			status: "fail",
-			message: "Invalid ID",
-		});
-	}
 
 	res.status(200).json({
 		status: "success",
@@ -73,14 +76,6 @@ exports.createTour = (req, res) => {
 
 //////////////////////////////////////////// UPDATE TOUR ROUTE
 exports.updateTour = (req, res) => {
-	// DOES => Checks if ID is greater than number of tours, if true, ID is invalid and return 404 error
-	if (req.params.id * 1 > tours.length) {
-		return res.status(404).json({
-			status: "fail",
-			message: "Invalid ID",
-		});
-	}
-
 	res.status(200).json({
 		status: "success",
 		data: {
@@ -90,14 +85,6 @@ exports.updateTour = (req, res) => {
 };
 ///////////////////////////////////////////- DELETE TOUR ROUTE
 exports.deleteTour = (req, res) => {
-	// DOES => Checks if ID is greater than number of tours, if true, ID is invalid and return 404 error
-	if (req.params.id * 1 > tours.length) {
-		return res.status(404).json({
-			status: "fail",
-			message: "Invalid ID",
-		});
-	}
-
 	// Status is 204 - No content
 	res.status(204).json({
 		status: "success",

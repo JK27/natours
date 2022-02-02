@@ -1,9 +1,12 @@
 const express = require("express");
 const tourController = require("./../controllers/tourController");
 
-//////////////////////////////////////////// TOUR ROUTES
 const router = express.Router();
 
+/////////////////////////////////////////////////////////// MIDDLEWARE
+router.param("id", tourController.checkId);
+
+/////////////////////////////////////////////////////////// TOUR ROUTES
 router
 	.route("/")
 	.get(tourController.getAllTours)
