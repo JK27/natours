@@ -5,8 +5,18 @@ const { del } = require("express/lib/application");
 
 const app = express();
 
+/////////////////////////////////////////////////////////// MIDDLEWARES
 // DOES => Adds middleware that can modify incoming request data
 app.use(express.json());
+app.use((req, res, next) => {
+	console.log("Hello from the middleware 👋");
+	next();
+});
+
+app.use((req, res, next) => {
+	req.requestTime = new Date().toISOString();
+	next();
+});
 
 // DOES => Read tours data from file
 const tours = JSON.parse(
@@ -16,6 +26,7 @@ const tours = JSON.parse(
 /////////////////////////////////////////////////////////// GET ALL TOURS ROUTE
 const getAllTours = (req, res) => {
 	// Route handler sends back all tours when user hits tours resource URL
+	console.log(req.requestTime);
 	res.status(200).json({
 		status: "success",
 		results: tours.length,
