@@ -1,25 +1,12 @@
 const fs = require("fs");
 const express = require("express");
 const { report } = require("process");
+const { del } = require("express/lib/application");
 
 const app = express();
 
 // DOES => Adds middleware that can modify incoming request data
 app.use(express.json());
-
-/* ---------------------------------------------------
-// DOES => Create routing to determine how app responds to client request (url & http method)
-app.get("/", (req, res) => {
-	res
-		.status(200)
-		// Automatically defines content type to JSON
-		.json({ message: "Hello from the server side!", app: "Natours" });
-});
-
-app.post("/", (req, res) => {
-	res.send("You can post to this endpoint...");
-});
---------------------------------------------------- */
 
 // DOES => Read tours data from file
 const tours = JSON.parse(
@@ -27,8 +14,7 @@ const tours = JSON.parse(
 );
 
 /////////////////////////////////////////////////////////// GET ALL TOURS ROUTE
-// DOES => Create routing to determine how app responds to client request (url & http method)
-app.get("/api/v1/tours", (req, res) => {
+const getAllTours = (req, res) => {
 	// Route handler sends back all tours when user hits tours resource URL
 	res.status(200).json({
 		status: "success",
@@ -37,10 +23,10 @@ app.get("/api/v1/tours", (req, res) => {
 			tours, // tours: tours
 		},
 	});
-});
+};
 
 /////////////////////////////////////////////////////////// GET TOUR BY ID ROUTE
-app.get("/api/v1/tours/:id", (req, res) => {
+const getTourById = (req, res) => {
 	// Route handler sends back all tours when user hits tours resource URL
 	// DOES => Converts ID string into number
 	const id = req.params.id * 1;
@@ -62,10 +48,11 @@ app.get("/api/v1/tours/:id", (req, res) => {
 			tour,
 		},
 	});
-});
+};
 
-/////////////////////////////////////////////////////////// POST TOURS ROUTE
-app.post("/api/v1/tours", (req, res) => {
+/////////////////////////////////////////////////////////// CREATE TOURS ROUTE
+
+const createTour = (req, res) => {
 	// Route handler sends data from client to the server
 	// console.log(req.body);
 
@@ -88,10 +75,10 @@ app.post("/api/v1/tours", (req, res) => {
 			});
 		}
 	);
-});
+};
 
 /////////////////////////////////////////////////////////// UPDATE TOUR ROUTE
-app.patch("/api/v1/tours/:id", (req, res) => {
+const updateTour = (req, res) => {
 	// DOES => Checks if ID is greater than number of tours, if true, ID is invalid and return 404 error
 	if (req.params.id * 1 > tours.length) {
 		return res.status(404).json({
@@ -106,10 +93,9 @@ app.patch("/api/v1/tours/:id", (req, res) => {
 			tour: "<Updated tour here...>",
 		},
 	});
-});
-
+};
 //////////////////////////////////////////////////////////- DELETE TOUR ROUTE
-app.delete("/api/v1/tours/:id", (req, res) => {
+const deleteTour = (req, res) => {
 	// DOES => Checks if ID is greater than number of tours, if true, ID is invalid and return 404 error
 	if (req.params.id * 1 > tours.length) {
 		return res.status(404).json({
@@ -123,7 +109,23 @@ app.delete("/api/v1/tours/:id", (req, res) => {
 		status: "success",
 		data: null,
 	});
-});
+};
+
+/////////////////////////////////////////////////////////// APP ROUTINGS
+// DOES => Create routing to determine how app responds to client request (url & http method)
+// app.get("/api/v1/tours", getAllTours);
+// app.get("/api/v1/tours/:id", getTourById);
+// app.post("/api/v1/tours", createTour);
+// app.patch("/api/v1/tours/:id", updateTour);
+// app.delete("/api/v1/tours/:id", deleteTour);
+// SAME AS => Code refactored below
+
+app.route("/api/v1/tours").get(getAllTours).post(createTour);
+app
+	.route("/api/v1/tours/:id")
+	.get(getTourById)
+	.patch(updateTour)
+	.delete(deleteTour);
 
 /////////////////////////////////////////////////////////// START SERVER
 const port = 8000;
