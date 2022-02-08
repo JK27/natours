@@ -1,107 +1,102 @@
-const fs = require("fs");
-
-// DOES => Read tours data from file
-const tours = JSON.parse(
-	fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
-);
-
-/////////////////////////////////////////////////////////// MIDDLEWARE
-//////////////////////////////////////////// CHECK ID
-// DOES => Checks if ID is greater than number of tours, if true, ID is invalid and return 404 error
-exports.checkId = (req, res, next, val) => {
-	console.log(`Tour id is ${val}`);
-	if (req.params.id * 1 > tours.length) {
-		return res.status(404).json({
-			status: "fail",
-			message: "Invalid ID",
-		});
-	}
-	next();
-};
-
-//////////////////////////////////////////// CHECK BODY
-// DOES => Checks if body contains tour name and price. If missing either, return 400 error
-exports.checkBody = (req, res, next) => {
-	if (!req.body.name || !req.body.price) {
-		return res.status(400).json({
-			status: "fail",
-			message: "Missing name or price.",
-		});
-	}
-	next();
-};
+const Tour = require("../models/tourModel");
 
 /////////////////////////////////////////////////////////// ROUTE HANDLERS
 //////////////////////////////////////////// GET ALL TOURS ROUTE
-exports.getAllTours = (req, res) => {
-	// Route handler sends back all tours when user hits tours resource URL
-	console.log(req.requestTime);
-	res.status(200).json({
-		status: "success",
-		results: tours.length,
-		data: {
-			tours, // tours: tours
-		},
-	});
+exports.getAllTours = async (req, res) => {
+	try {
+		// DOES => Gets all the tours from the Tour collection and sends them as data object
+		const tours = await Tour.find();
+
+		res.status(200).json({
+			status: "success",
+			results: tours.length,
+			data: {
+				tours,
+			},
+		});
+	} catch (err) {
+		res.status(404).json({
+			status: "fail",
+			message: err,
+		});
+	}
 };
 
 //////////////////////////////////////////// GET TOUR BY ID ROUTE
-exports.getTourById = (req, res) => {
-	// Route handler sends back all tours when user hits tours resource URL
-	// DOES => Converts ID string into number
-	const id = req.params.id * 1;
-	// DOES => Searches for element whose ID is equal to the ID specified in the params
-	const tour = tours.find(el => el.id === id);
-
-	res.status(200).json({
-		status: "success",
-		data: {
-			tour,
-		},
-	});
+exports.getTourById = async (req, res) => {
+	// DOES => Takes ID param from the request to find data for that specific tour, returning only the tour with that specified ID
+	try {
+		const tour = await Tour.findById(req.params.id);
+		res.status(200).json({
+			status: "success",
+			data: {
+				tour,
+			},
+		});
+	} catch (err) {
+		res.status(400).json({
+			status: "fail",
+			message: err,
+		});
+	}
 };
 
 //////////////////////////////////////////// CREATE TOURS ROUTE
+// DOES => Creates a new tour based on the Tour Model, getting the data from the body of the request (req.body). Tour.crate(req.body) method creates a Promise that is stored in the newTour var
+exports.createTour = async (req, res) => {
+	try {
+		const newTour = await Tour.create(req.body);
 
-exports.createTour = (req, res) => {
-	// Route handler sends data from client to the server
-	// console.log(req.body);
-
-	// DOES => Creates new ID by getting id from previous entry and then adding 1
-	const newId = tours[tours.length - 1].id + 1;
-	// DOES => Creates new tour using newId and getting the body from the request
-	const newTour = Object.assign({ id: newId }, req.body);
-
-	// DOES => Adds newTour to the tours array overwriting the file
-	tours.push(newTour);
-	fs.writeFile(
-		`${__dirname}/dev-data/data/tours-simple.json`,
-		JSON.stringify(tours),
-		err => {
-			res.status(201).json({
-				status: "success",
-				data: {
-					tour: newTour,
-				},
-			});
-		}
-	);
+		res.status(201).json({
+			status: "success",
+			data: {
+				tour: newTour,
+			},
+		});
+	} catch (err) {
+		res.status(400).json({
+			status: "fail",
+			message: "Invalid data set",
+		});
+	}
 };
 
 //////////////////////////////////////////// UPDATE TOUR ROUTE
-exports.updateTour = (req, res) => {
-	res.status(200).json({
-		status: "success",
-		data: {
-			tour: "<Updated tour here...>",
-		},
-	});
+exports.updateTour = async (req, res) => {
+	// DOES => Finds tour by ID and updates the body of the request, returning the new document
+	try {
+		const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
+			new: true,
+			runValidators: true,
+		});
+
+		res.status(200).json({
+			status: "success",
+			data: {
+				tour,
+			},
+		});
+	} catch (err) {
+		res.status(404).json({
+			status: "fail",
+			message: err,
+		});
+	}
 };
 ///////////////////////////////////////////- DELETE TOUR ROUTE
-exports.deleteTour = (req, res) => {
-	// Status is 204 - No content
-	res.status(204).json({
-		status: "success",
-		data: null,
-	});
+exports.deleteTour = async (req, res) => {
+	// DOES => Finds tour by ID and deletes it, not returning any data back to the client
+	try {
+		const tour = await Tour.findByIdAndDelete(req.params.id);
+		// Status is 204 - No content
+		res.status(204).json({
+			status: "success",
+			data: null,
+		});
+	} catch (err) {
+		res.status(404).json({
+			status: "fail",
+			message: err,
+		});
+	}
 };

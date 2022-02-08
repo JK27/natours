@@ -4,13 +4,13 @@ const tourController = require("./../controllers/tourController");
 const router = express.Router();
 
 /////////////////////////////////////////////////////////// MIDDLEWARE
-router.param("id", tourController.checkId);
+// router.param("id", tourController.checkId);
 
 /////////////////////////////////////////////////////////// TOUR ROUTES
 router
 	.route("/")
 	.get(tourController.getAllTours)
-	.post(tourController.checkBody, tourController.createTour);
+	.post(tourController.createTour);
 
 router
 	.route("/:id")
