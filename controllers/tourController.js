@@ -5,6 +5,7 @@ const Tour = require("../models/tourModel");
 exports.getAllTours = async (req, res) => {
 	try {
 		console.log(req.query);
+		///////////////////////// FILTERING THE QUERY
 		// DOES => Spreads the query params and excludes specified fields deleting them from the query, leaving only the desired fields for filtering
 		const queryObj = { ...req.query };
 		const excludedFields = ["page", "sort", "limit", "field"];
@@ -13,20 +14,27 @@ exports.getAllTours = async (req, res) => {
 		// DOES => Converts queryObj into string, replacing all the operators to include '$' required for the mongoDB operators
 		let queryStr = JSON.stringify(queryObj);
 		queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
-		console.log(JSON.parse(queryStr));
-		// {difficulty: 'easy', duration: {$gte: 5}}
 
 		// DOES => Gets all the tours from the Tour collection that meet the params on queyObj, and sends them as data object, returning a document that matches the query
-		const query = Tour.find(JSON.parse(queryStr));
+		let query = Tour.find(JSON.parse(queryStr));
+
+		///////////////////////// SORTING THE QUERY
+		// DOES => Sorts the results by the specified params, if any. If no sort params, then defaults to createdAt in descending order to show the most recent first
+		if (req.query.sort) {
+			const sortBy = req.query.sort.split(",").join(" ");
+			query = query.sort(sortBy);
+		} else {
+			query = query.sort("-createdAt");
+		}
+
+		// DOES => Executes the query
+		const tours = await query;
 
 		// const query = await Tour.find()
 		// 	.where("duration")
 		// 	.equals(5)
 		// 	.where("difficulty")
 		// 	.equals("easy");
-
-		// DOES => Executes the query
-		const tours = await query;
 
 		// DOES => Sends the response
 		res.status(200).json({
