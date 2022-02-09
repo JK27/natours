@@ -27,6 +27,15 @@ exports.getAllTours = async (req, res) => {
 			query = query.sort("-createdAt");
 		}
 
+		///////////////////////// LIMITING THE QUERY
+		// DOES => Limits the number of fields shown to the client by the specified params, if any. If not field params, then defaults to only exclude the __v field used only internally by Mongoose
+		if (req.query.fields) {
+			const fields = req.query.fields.split(",").join(" ");
+			query = query.select(fields);
+		} else {
+			query = query.select("-__v");
+		}
+
 		// DOES => Executes the query
 		const tours = await query;
 

@@ -67,6 +67,7 @@ const tourSchema = new mongoose.Schema({
 	createdAt: {
 		type: Date,
 		default: Date.now(), // Mongoose automatically converts it to current date
+		select: false, // createdAt field will not show to the client
 	},
 	////////////////////////////////////////// START DATES
 	startDates: [Date],
