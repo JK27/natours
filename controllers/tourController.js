@@ -4,9 +4,24 @@ const Tour = require("../models/tourModel");
 //////////////////////////////////////////// GET ALL TOURS ROUTE
 exports.getAllTours = async (req, res) => {
 	try {
-		// DOES => Gets all the tours from the Tour collection and sends them as data object
-		const tours = await Tour.find();
+		// DOES => Spreads the query params and excludes specified fields deleting them from the query, leaving only the desired fields for filtering
+		const queryObj = { ...req.query };
+		const excludedFields = ["page", "sort", "limit", "field"];
+		excludedFields.forEach(el => delete queryObj[el]);
 
+		// DOES => Gets all the tours from the Tour collection that meet the params on queyObj, and sends them as data object, returning a document that matches the query
+		const query = Tour.find(queryObj);
+
+		// const query = await Tour.find()
+		// 	.where("duration")
+		// 	.equals(5)
+		// 	.where("difficulty")
+		// 	.equals("easy");
+
+		// DOES => Executes the query
+		const tours = await query;
+
+		// DOES => Sends the response
 		res.status(200).json({
 			status: "success",
 			results: tours.length,
@@ -41,7 +56,7 @@ exports.getTourById = async (req, res) => {
 	}
 };
 
-//////////////////////////////////////////// CREATE TOURS ROUTE
+//////////////////////////////////////////// CREATE TOUR ROUTE
 // DOES => Creates a new tour based on the Tour Model, getting the data from the body of the request (req.body). Tour.crate(req.body) method creates a Promise that is stored in the newTour var
 exports.createTour = async (req, res) => {
 	try {
