@@ -1,4 +1,5 @@
 const Tour = require("../models/tourModel");
+const APIFeatures = require("../utils/apiFeatures");
 
 /////////////////////////////////////////////////////////// ROUTE HANDLERS
 //////////////////////////////////////////// TOP 5 TOURS ROUTE
@@ -13,57 +14,18 @@ exports.aliasTopTours = (req, res, next) => {
 //////////////////////////////////////////// GET ALL TOURS ROUTE
 exports.getAllTours = async (req, res) => {
 	try {
-		console.log(req.query);
-		///////////////////////// FILTERING THE QUERY
-		// DOES => Spreads the query params and excludes specified fields deleting them from the query, leaving only the desired fields for filtering
-		const queryObj = { ...req.query };
-		const excludedFields = ["page", "sort", "limit", "field"];
-		excludedFields.forEach(el => delete queryObj[el]);
+		///////////////////////// EXECUTE QUERY
+		// DOES => Crates a new object of the APIFeatures class. In there, it passes a query object (Tour.find()) and the query string coming from Express (req.query)
+		const features = new APIFeatures(Tour.find(), req.query)
+			.filter()
+			.sort()
+			.limitFields()
+			.paginate();
 
-		// DOES => Converts queryObj into string, replacing all the operators to include '$' required for the mongoDB operators
-		let queryStr = JSON.stringify(queryObj);
-		queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+		// DOES => Awaits the result of the query to come back with all the documents that were selected
+		const tours = await features.query;
 
-		// DOES => Gets all the tours from the Tour collection that meet the params on queyObj, and sends them as data object, returning a document that matches the query
-		let query = Tour.find(JSON.parse(queryStr));
-
-		///////////////////////// SORTING THE QUERY
-		// DOES => Sorts the results by the specified params, if any. If no sort params, then defaults to createdAt in descending order to show the most recent first
-		if (req.query.sort) {
-			const sortBy = req.query.sort.split(",").join(" ");
-			query = query.sort(sortBy);
-		} else {
-			query = query.sort("-_id");
-		}
-
-		///////////////////////// LIMITING THE QUERY
-		// DOES => Limits the number of fields shown to the client by the specified params, if any. If not field params, then defaults to only exclude the __v field used only internally by Mongoose
-		if (req.query.fields) {
-			const fields = req.query.fields.split(",").join(" ");
-			query = query.select(fields);
-		} else {
-			query = query.select("-__v");
-		}
-
-		///////////////////////// PAGINATION
-		// DOES => Takes page and limit params from query, if any. If no params, then defaults page to 1 and limit to 100
-		const limit = req.query.limit * 1 || 100;
-		const page = req.query.page * 1 || 1; // Converts string to a number
-		// DOES => Calculates number of tours to skip for that page. EXAMPLE: page=3&limit=10 shows results 21-30 (3 - 1) * 10 = 20
-		const skip = (page - 1) * limit;
-		console.log(skip);
-
-		query = query.skip(skip).limit(limit);
-
-		if (req.query.page) {
-			const numberTours = await Tour.countDocuments();
-			if (skip >= numberTours) throw Error("This page does not exist.");
-		}
-
-		// DOES => Executes the query
-		const tours = await query;
-
-		// DOES => Sends the response
+		///////////////////////// SEND RESPONSE
 		res.status(200).json({
 			status: "success",
 			results: tours.length,
