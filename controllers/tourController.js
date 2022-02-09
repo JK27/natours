@@ -4,13 +4,20 @@ const Tour = require("../models/tourModel");
 //////////////////////////////////////////// GET ALL TOURS ROUTE
 exports.getAllTours = async (req, res) => {
 	try {
+		console.log(req.query);
 		// DOES => Spreads the query params and excludes specified fields deleting them from the query, leaving only the desired fields for filtering
 		const queryObj = { ...req.query };
 		const excludedFields = ["page", "sort", "limit", "field"];
 		excludedFields.forEach(el => delete queryObj[el]);
 
+		// DOES => Converts queryObj into string, replacing all the operators to include '$' required for the mongoDB operators
+		let queryStr = JSON.stringify(queryObj);
+		queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+		console.log(JSON.parse(queryStr));
+		// {difficulty: 'easy', duration: {$gte: 5}}
+
 		// DOES => Gets all the tours from the Tour collection that meet the params on queyObj, and sends them as data object, returning a document that matches the query
-		const query = Tour.find(queryObj);
+		const query = Tour.find(JSON.parse(queryStr));
 
 		// const query = await Tour.find()
 		// 	.where("duration")
