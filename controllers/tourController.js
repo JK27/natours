@@ -24,7 +24,7 @@ exports.getAllTours = async (req, res) => {
 			const sortBy = req.query.sort.split(",").join(" ");
 			query = query.sort(sortBy);
 		} else {
-			query = query.sort("-createdAt");
+			query = query.sort("-_id");
 		}
 
 		///////////////////////// LIMITING THE QUERY
@@ -34,6 +34,21 @@ exports.getAllTours = async (req, res) => {
 			query = query.select(fields);
 		} else {
 			query = query.select("-__v");
+		}
+
+		///////////////////////// PAGINATION
+		// DOES => Takes page and limit params from query, if any. If no params, then defaults page to 1 and limit to 100
+		const limit = req.query.limit * 1 || 100;
+		const page = req.query.page * 1 || 1; // Converts string to a number
+		// DOES => Calculates number of tours to skip for that page. EXAMPLE: page=3&limit=10 shows results 21-30 (3 - 1) * 10 = 20
+		const skip = (page - 1) * limit;
+		console.log(skip);
+
+		query = query.skip(skip).limit(limit);
+
+		if (req.query.page) {
+			const numberTours = await Tour.countDocuments();
+			if (skip >= numberTours) throw Error("This page does not exist.");
 		}
 
 		// DOES => Executes the query
