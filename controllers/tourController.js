@@ -1,6 +1,15 @@
 const Tour = require("../models/tourModel");
 
 /////////////////////////////////////////////////////////// ROUTE HANDLERS
+//////////////////////////////////////////// TOP 5 TOURS ROUTE
+// DOES => Gets top 5 tours based on ratingsAverage and price
+exports.aliasTopTours = (req, res, next) => {
+	req.query.limit = "5";
+	req.query.sort = "ratingsAverage,price";
+	req.query.fields = "name,price,ratingsAverage,summary,difficulty";
+	next();
+};
+
 //////////////////////////////////////////// GET ALL TOURS ROUTE
 exports.getAllTours = async (req, res) => {
 	try {
@@ -53,12 +62,6 @@ exports.getAllTours = async (req, res) => {
 
 		// DOES => Executes the query
 		const tours = await query;
-
-		// const query = await Tour.find()
-		// 	.where("duration")
-		// 	.equals(5)
-		// 	.where("difficulty")
-		// 	.equals("easy");
 
 		// DOES => Sends the response
 		res.status(200).json({
