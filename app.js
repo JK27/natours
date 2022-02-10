@@ -3,6 +3,8 @@ const { report } = require("process");
 const { del } = require("express/lib/application");
 const morgan = require("morgan"); // HTTP request logger middleware for node.js
 
+const AppError = require("./utils/appError");
+const globalErrorHandler = require("./controllers/errorController");
 const tourRouter = require("./routes/tourRoutes");
 const userRouter = require("./routes/userRoutes");
 
@@ -26,13 +28,13 @@ app.use((req, res, next) => {
 app.use("/api/v1/tours", tourRouter);
 app.use("/api/v1/users", userRouter);
 
-// DOES => Handles errors for all incorrect urls sending a 404
+// DOES => Handles errors for all incorrect urls, urls that don't exist, sending a 404
 // NOTE => This route needs to be last to run to allow valid urls to be found
 app.all("*", (req, res, next) => {
-	res.status(404).json({
-		status: "fail",
-		message: `Cannot find ${req.originalUrl} on this server!`,
-	});
+	next(new AppError(`Cannot find ${req.originalUrl} on this server!`, 404));
 });
+
+//////////////////////////////////////////// GLOBAL ERROR HANDLING MIDDLEWARE
+app.use(globalErrorHandler);
 
 module.exports = app;
