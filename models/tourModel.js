@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
+const validator = require("validator");
 
 ////////////////////////////////////////////////////////// TOUR SCHEMA
 const tourSchema = new mongoose.Schema(
@@ -58,6 +59,13 @@ const tourSchema = new mongoose.Schema(
 		////////////////////////////////////////// PRICE DISCOUNT
 		priceDiscount: {
 			type: Number,
+			validate: {
+				validator: function (value) {
+					// NOTE => this only points to current doc on NEW document creation
+					return value < this.price;
+				},
+				message: "Discount price ({VALUE}) must be lower than regular price",
+			},
 		},
 		////////////////////////////////////////// SUMMARY
 		summary: {

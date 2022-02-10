@@ -18,15 +18,21 @@ app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
 
 app.use((req, res, next) => {
-	next();
-});
-
-app.use((req, res, next) => {
 	req.requestTime = new Date().toISOString();
 	next();
 });
 
+/////////////////////////////////////////////////////////// ROUTES
 app.use("/api/v1/tours", tourRouter);
 app.use("/api/v1/users", userRouter);
+
+// DOES => Handles errors for all incorrect urls sending a 404
+// NOTE => This route needs to be last to run to allow valid urls to be found
+app.all("*", (req, res, next) => {
+	res.status(404).json({
+		status: "fail",
+		message: `Cannot find ${req.originalUrl} on this server!`,
+	});
+});
 
 module.exports = app;
