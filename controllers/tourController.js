@@ -3,6 +3,7 @@ const res = require("express/lib/response");
 const Tour = require("../models/tourModel");
 const APIFeatures = require("../utils/apiFeatures");
 const catchAsync = require("../utils/catchAsync");
+const AppError = require("../utils/appError");
 
 /////////////////////////////////////////////////////////// ROUTE HANDLERS
 //////////////////////////////////////////// TOP 5 TOURS ROUTE
@@ -41,6 +42,11 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 exports.getTourById = catchAsync(async (req, res, next) => {
 	// DOES => Takes ID param from the request to find data for that specific tour, returning only the tour with that specified ID
 	const tour = await Tour.findById(req.params.id);
+
+	if (!tour) {
+		return next(new AppError("No tour found with that ID", 404));
+	}
+
 	res.status(200).json({
 		status: "success",
 		data: {
@@ -75,6 +81,10 @@ exports.updateTour = catchAsync(async (req, res, next) => {
 		runValidators: true,
 	});
 
+	if (!tour) {
+		return next(new AppError("No tour found with that ID", 404));
+	}
+
 	res.status(200).json({
 		status: "success",
 		data: {
@@ -86,6 +96,11 @@ exports.updateTour = catchAsync(async (req, res, next) => {
 exports.deleteTour = catchAsync(async (req, res, next) => {
 	// DOES => Finds tour by ID and deletes it, not returning any data back to the client
 	const tour = await Tour.findByIdAndDelete(req.params.id);
+
+	if (!tour) {
+		return next(new AppError("No tour found with that ID", 404));
+	}
+
 	// Status is 204 - No content
 	res.status(204).json({
 		status: "success",
