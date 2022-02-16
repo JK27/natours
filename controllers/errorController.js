@@ -13,7 +13,14 @@ const handelDuplicateFieldsDB = err => {
 	return new AppError(message, 400);
 };
 
-/////////////////////////////////////////////////////////// SEND ERROR DEVELOPMENT
+/////////////////////////////////////////////////////////// HANDLE VALIDATION ERROR DB
+const handleValidationErrorDB = err => {
+	const errors = Object.values(err.errors).map(el => el.message);
+	const message = `Invalid input data. ${errors.join(". ")}`;
+	return new AppError(message, 400);
+};
+
+/////////////////////////////////////////////////////////// SEND ERROR IN DEVELOPMENT
 const sendErrorDev = (err, res) => {
 	res.status(err.statusCode).json({
 		status: err.status,
@@ -48,10 +55,11 @@ module.exports = (err, req, res, next) => {
 	if (process.env.NODE_ENV === "development") {
 		sendErrorDev(err, res);
 	} else if (process.env.NODE_ENV === "production") {
-		let error = { ...err };
+		let error = { ...err, name: err.name };
 
-		if (error.name === "CastError") error = handleCastErrorDB(error);
+		if (err.name === "CastError") error = handleCastErrorDB(error);
 		if (error.code === 11000) error = handelDuplicateFieldsDB(error);
+		if (err.name === "ValidationError") error = handleValidationErrorDB(error);
 
 		sendErrorProd(error, res);
 	}
