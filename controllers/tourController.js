@@ -1,12 +1,9 @@
-const req = require("express/lib/request");
-const res = require("express/lib/response");
 const Tour = require("../models/tourModel");
 const APIFeatures = require("../utils/apiFeatures");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
-/////////////////////////////////////////////////////////// ROUTE HANDLERS
-//////////////////////////////////////////// TOP 5 TOURS ROUTE
+/////////////////////////////////////////////////////////// TOP 5 TOURS ROUTE
 // DOES => Gets top 5 tours based on ratingsAverage and price
 exports.aliasTopTours = (req, res, next) => {
 	req.query.limit = "5";
@@ -15,7 +12,7 @@ exports.aliasTopTours = (req, res, next) => {
 	next();
 };
 
-//////////////////////////////////////////// GET ALL TOURS ROUTE
+/////////////////////////////////////////////////////////// GET ALL TOURS ROUTE
 exports.getAllTours = catchAsync(async (req, res, next) => {
 	///////////////////////// EXECUTE QUERY
 	// DOES => Crates a new object of the APIFeatures class. In there, it passes a query object (Tour.find()) and the query string coming from Express (req.query)
@@ -28,7 +25,7 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 	// DOES => Awaits the result of the query to come back with all the documents that were selected
 	const tours = await features.query;
 
-	///////////////////////// SEND RESPONSE
+	//////////////////////////////////////// SEND RESPONSE
 	res.status(200).json({
 		status: "success",
 		results: tours.length,
@@ -38,7 +35,7 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 	});
 });
 
-//////////////////////////////////////////// GET TOUR BY ID ROUTE
+/////////////////////////////////////////////////////////// GET TOUR BY ID ROUTE
 exports.getTourById = catchAsync(async (req, res, next) => {
 	// DOES => Takes ID param from the request to find data for that specific tour, returning only the tour with that specified ID
 	const tour = await Tour.findById(req.params.id);
@@ -55,7 +52,7 @@ exports.getTourById = catchAsync(async (req, res, next) => {
 	});
 });
 
-//////////////////////////////////////////// CREATE TOUR ROUTE
+/////////////////////////////////////////////////////////// CREATE TOUR ROUTE
 /* 
 	In order to avoid using try-catch blocks, async function is wrapped inside catchAsync function, which returns a new anonymous function that will be assigned to createTour.
 	This anonymous function is the one being called every time a new tour should be created using the crateTour handler.
@@ -73,7 +70,7 @@ exports.createTour = catchAsync(async (req, res, next) => {
 	});
 });
 
-//////////////////////////////////////////// UPDATE TOUR ROUTE
+/////////////////////////////////////////////////////////// UPDATE TOUR ROUTE
 exports.updateTour = catchAsync(async (req, res, next) => {
 	// DOES => Finds tour by ID and updates the body of the request, returning the new document
 	const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
@@ -92,7 +89,7 @@ exports.updateTour = catchAsync(async (req, res, next) => {
 		},
 	});
 });
-///////////////////////////////////////////- DELETE TOUR ROUTE
+//////////////////////////////////////////////////////////- DELETE TOUR ROUTE
 exports.deleteTour = catchAsync(async (req, res, next) => {
 	// DOES => Finds tour by ID and deletes it, not returning any data back to the client
 	const tour = await Tour.findByIdAndDelete(req.params.id);
@@ -107,7 +104,7 @@ exports.deleteTour = catchAsync(async (req, res, next) => {
 		data: null,
 	});
 });
-//////////////////////////////////////////// GET TOUR STATS ROUTE
+/////////////////////////////////////////////////////////// GET TOUR STATS ROUTE
 exports.getTourStats = catchAsync(async (req, res, next) => {
 	const stats = await Tour.aggregate([
 		{
@@ -140,7 +137,7 @@ exports.getTourStats = catchAsync(async (req, res, next) => {
 	});
 });
 
-//////////////////////////////////////////// GET MONTHLY PLAN ROUTE
+/////////////////////////////////////////////////////////// GET MONTHLY PLAN ROUTE
 exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
 	const year = req.params.year * 1; // 2021
 
