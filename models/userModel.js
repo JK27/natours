@@ -31,6 +31,7 @@ const UserSchema = new mongoose.Schema({
 		required: [true, "Please provide a password."],
 		minlength: 8,
 		trim: true,
+		select: false,
 	},
 	////////////////////////////////////////// PASSWORD CONFIRM
 	passwordConfirm: {
@@ -57,6 +58,13 @@ UserSchema.pre("save", async function (next) {
 	this.passwordConfirm = undefined;
 	next();
 });
+// DOES => Compares if password entered for login (candidatePassword) is correct, it is the same as userPassword
+UserSchema.methods.correctPassword = async function (
+	candidatePassword,
+	userPassword
+) {
+	return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 const User = mongoose.model("User", UserSchema);
 
