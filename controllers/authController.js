@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const User = require("./../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 
@@ -9,14 +10,24 @@ const catchAsync = require("../utils/catchAsync");
 */
 
 // DOES => Creates a new user based on the User Model, getting the data from the body of the request (req.body). User.crate(req.body) method creates a Promise that is stored in the newUser var
-
 exports.signup = catchAsync(async (req, res, next) => {
-	const newUSer = await User.create(req.body);
+	const newUser = await User.create({
+		name: req.body.name,
+		email: req.body.email,
+		password: req.body.password,
+		passwordConfirm: req.body.passwordConfirm,
+	});
+
+	// DOES => Automatically logs in user after signing up
+	const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+		expiresIn: process.env.JWT_EXPIRES_IN,
+	});
 
 	res.status(201).json({
 		status: "success",
+		token,
 		data: {
-			User: newUSer,
+			User: newUser,
 		},
 	});
 });
