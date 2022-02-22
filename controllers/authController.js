@@ -6,9 +6,23 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("./../utils/appError");
 const sendEmail = require("./../utils/email");
 
+/////////////////////////////////////////////////////////// SIGN TOKEN
 const signToken = id => {
 	return jwt.sign({ id }, process.env.JWT_SECRET, {
 		expiresIn: process.env.JWT_EXPIRES_IN,
+	});
+};
+
+/////////////////////////////////////////////////////////// CREATE SEND TOKEN
+const createSendToken = (user, statusCode, res) => {
+	const token = signToken(user._id);
+
+	res.status(statusCode).json({
+		status: "success",
+		token,
+		data: {
+			User: user,
+		},
 	});
 };
 
@@ -31,15 +45,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 	});
 
 	// DOES => Automatically logs in user after signing up
-	const token = signToken(newUser._id);
-
-	res.status(201).json({
-		status: "success",
-		token,
-		data: {
-			User: newUser,
-		},
-	});
+	createSendToken(newUser, 201, res);
 });
 
 /////////////////////////////////////////////////////////// LOG IN USER
@@ -58,12 +64,7 @@ exports.login = catchAsync(async (req, res, next) => {
 		return next(new AppError("Incorrect email or password", 401));
 	}
 	// DOES => ... then send token to the client
-	const token = signToken(user._id);
-
-	res.status(200).json({
-		status: "success",
-		token,
-	});
+	createSendToken(user, 200, res);
 });
 
 /////////////////////////////////////////////////////////// PROTECT ROUTES MIDDLEWARE
@@ -172,7 +173,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 		passwordResetToken: hashedToken,
 		passwordResetExpires: { $gt: Date.now() },
 	});
-	// DOES => 2) ... then, if token has not expired and user exists, sets new password...
+	// DOES => 2) ... if token has not expired and user exists, sets new password...
 	if (!user) {
 		return next(new AppError("Token is not valid or has expired", 400));
 	}
@@ -182,13 +183,24 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 	user.passwordResetExpires = undefined;
 
 	await user.save();
-	// DOES => 3) ... then updates passwordChangedAt property...
+	// DOES => 3) ... updates passwordChangedAt property...
 
-	// DOES => 4) ... then logs user in and sends JWT
-	const token = signToken(user._id);
+	// DOES => 4) ... logs user in and sends JWT
+	createSendToken(user, 200, res);
+});
 
-	res.status(200).json({
-		status: "success",
-		token,
-	});
+/////////////////////////////////////////////////////////// UPDATE PASSWORD MIDDLEWARE
+exports.updatePassword = catchAsync(async (req, res, next) => {
+	// DOES => 1) Gets user from collection...
+	const user = await User.findById(req.user.id).select("+password");
+	// DOES => 2) ... checks if posted current password is correct...
+	if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
+		return next(new AppError("Your current password is incorrect.", 401));
+	}
+	// DOES => 3) ... if true, updates password...
+	user.password = req.body.password;
+	user.passwordConfirm = req.body.passwordConfirm;
+	await user.save();
+	// DOES => 4) ... and logs in user and sends JWT
+	createSendToken(user, 200, res);
 });
