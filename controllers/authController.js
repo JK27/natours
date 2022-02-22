@@ -25,6 +25,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 		password: req.body.password,
 		passwordConfirm: req.body.passwordConfirm,
 		passwordChangedAt: req.body.passwordChangedAt,
+		role: req.body.role,
 	});
 
 	// DOES => Automatically logs in user after signing up
@@ -99,3 +100,16 @@ exports.protect = catchAsync(async (req, res, next) => {
 	req.user = currentUser;
 	next();
 });
+
+/////////////////////////////////////////////////////////// RESTRICT ROUTES MIDDLEWARE
+// DOES => If the role of the current user (req.user) is not a role which that action is restricted to, then return error. If true, then next()
+exports.restrictTo = (...roles) => {
+	return (req, res, next) => {
+		if (!roles.includes(req.user.role)) {
+			return next(
+				new AppError("You do not have permission to perform this action.", 403)
+			);
+		}
+		next();
+	};
+};
