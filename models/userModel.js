@@ -4,7 +4,6 @@ const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
 ////////////////////////////////////////////////////////// USER SCHEMA
-
 const userSchema = new mongoose.Schema({
 	////////////////////////////////////////// NAME
 	name: {
@@ -66,6 +65,12 @@ const userSchema = new mongoose.Schema({
 	passwordResetExpires: {
 		type: Date,
 	},
+	////////////////////////////////////////// ACTIVE?
+	active: {
+		type: Boolean,
+		default: true,
+		select: false,
+	},
 });
 
 ////////////////////////////////////////////////////////// PASSWORD ENCRYPTION MIDDLEWARE
@@ -83,7 +88,13 @@ userSchema.pre("save", function (next) {
 	if (!this.isModified("password") || this.isNew) return next();
 
 	// DOES => Makes sure that password change time stamp is before logging user back in
-	this.passwordChangedAt = Date.now() - 1;
+	this.passwordChangedAt = Date.now() - 1000;
+	next();
+});
+
+//////////////////////////////////////////// SHOW ONLY ACTIVE USERS
+userSchema.pre(/^find/, function (next) {
+	this.find({ active: { $ne: false } });
 	next();
 });
 
