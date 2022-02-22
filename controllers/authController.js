@@ -1,3 +1,4 @@
+const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const User = require("./../models/userModel");
 const catchAsync = require("../utils/catchAsync");
@@ -23,6 +24,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 		email: req.body.email,
 		password: req.body.password,
 		passwordConfirm: req.body.passwordConfirm,
+		passwordChangedAt: req.body.passwordChangedAt,
 	});
 
 	// DOES => Automatically logs in user after signing up
@@ -59,4 +61,41 @@ exports.login = catchAsync(async (req, res, next) => {
 		status: "success",
 		token,
 	});
+});
+
+/////////////////////////////////////////////////////////// PROTECT ROUTES MIDDLEWARE
+exports.protect = catchAsync(async (req, res, next) => {
+	let token;
+	// DOES => 1) Gets token and checks if it exists...
+	if (
+		req.headers.authorization &&
+		req.headers.authorization.startsWith("Bearer")
+	) {
+		token = req.headers.authorization.split(" ")[1];
+	}
+	// DOES => 2) ... if there is no token, gives 401 error...
+	if (!token) {
+		return next(
+			new AppError(
+				"You are not logged in. Please log in or sign up to get access",
+				401
+			)
+		);
+	}
+	// DOES => 3) ... if token exists, then verifies the token...
+	const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+	// DOES => 4) ... and if user still exists...
+	const currentUser = await User.findById(decoded.id);
+	if (!currentUser) {
+		return next(new AppError("This user does no longer exist.", 401));
+	}
+	// DOES => If password has changed, then return a new error
+	if (currentUser.changedPasswordAfter(decoded.iat)) {
+		return next(
+			new AppError("The password has been changed. Please log in again.", 401)
+		);
+	}
+	// DOES => 5) ... and if user has not changed password after token was issued, then grant access to protected route.
+	req.user = currentUser;
+	next();
 });
