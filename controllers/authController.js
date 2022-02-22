@@ -1,3 +1,4 @@
+const crypto = require("crypto");
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const User = require("./../models/userModel");
@@ -115,7 +116,7 @@ exports.restrictTo = (...roles) => {
 	};
 };
 
-/////////////////////////////////////////////////////////// PASSWORD RESET MIDDLEWARE
+/////////////////////////////////////////////////////////// FORGOT PASSWORD MIDDLEWARE
 exports.forgotPassword = catchAsync(async (req, res, next) => {
 	// DOES => 1) Gets user based on posted email...
 	const user = await User.findOne({ email: req.body.email });
@@ -159,4 +160,35 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 	}
 });
 
-exports.resetPassword = (req, res, next) => {};
+/////////////////////////////////////////////////////////// RESET PASSWORD MIDDLEWARE
+exports.resetPassword = catchAsync(async (req, res, next) => {
+	// DOES => 1) Gets user based on token...
+	const hashedToken = crypto
+		.createHash("sha256")
+		.update(req.params.token)
+		.digest("hex");
+
+	const user = await User.findOne({
+		passwordResetToken: hashedToken,
+		passwordResetExpires: { $gt: Date.now() },
+	});
+	// DOES => 2) ... then, if token has not expired and user exists, sets new password...
+	if (!user) {
+		return next(new AppError("Token is not valid or has expired", 400));
+	}
+	user.password = req.body.password;
+	user.passwordConfirm = req.body.passwordConfirm;
+	user.passwordResetToken = undefined;
+	user.passwordResetExpires = undefined;
+
+	await user.save();
+	// DOES => 3) ... then updates passwordChangedAt property...
+
+	// DOES => 4) ... then logs user in and sends JWT
+	const token = signToken(user._id);
+
+	res.status(200).json({
+		status: "success",
+		token,
+	});
+});

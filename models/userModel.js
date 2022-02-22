@@ -77,6 +77,16 @@ userSchema.pre("save", async function (next) {
 	this.passwordConfirm = undefined;
 	next();
 });
+
+////////////////////////////////////////////////////////// PASSWORD CHANGED AT MIDDLEWARE
+userSchema.pre("save", function (next) {
+	if (!this.isModified("password") || this.isNew) return next();
+
+	// DOES => Makes sure that password change time stamp is before logging user back in
+	this.passwordChangedAt = Date.now() - 1;
+	next();
+});
+
 //////////////////////////////////////////// CORRECT PASSWORD INSTANCE METHOD
 // DOES => Compares if password entered for login (candidatePassword) is correct, it is the same as userPassword
 userSchema.methods.correctPassword = async function (
