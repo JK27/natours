@@ -1,10 +1,11 @@
+const crypto = require("crypto");
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
 ////////////////////////////////////////////////////////// USER SCHEMA
 
-const UserSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
 	////////////////////////////////////////// NAME
 	name: {
 		type: String,
@@ -57,10 +58,18 @@ const UserSchema = new mongoose.Schema({
 	passwordChangedAt: {
 		type: Date,
 	},
+	////////////////////////////////////////// PASSWORD RESET TOKEN
+	passwordResetToken: {
+		type: String,
+	},
+	////////////////////////////////////////// PASSWORD CHANGED AT
+	passwordResetExpires: {
+		type: Date,
+	},
 });
 
 ////////////////////////////////////////////////////////// PASSWORD ENCRYPTION MIDDLEWARE
-UserSchema.pre("save", async function (next) {
+userSchema.pre("save", async function (next) {
 	// DOES => If password field is not modified, it moves to next function ignoring following code
 	if (!this.isModified("password")) return next();
 	// DOES => Encrypts the password after it is saved and sets passwordConfirm to undefined as it is no longer needed, it does not need to be persisted in the database
@@ -70,7 +79,7 @@ UserSchema.pre("save", async function (next) {
 });
 //////////////////////////////////////////// CORRECT PASSWORD INSTANCE METHOD
 // DOES => Compares if password entered for login (candidatePassword) is correct, it is the same as userPassword
-UserSchema.methods.correctPassword = async function (
+userSchema.methods.correctPassword = async function (
 	candidatePassword,
 	userPassword
 ) {
@@ -78,7 +87,7 @@ UserSchema.methods.correctPassword = async function (
 };
 
 //////////////////////////////////////////// CHANGED PASSWORD INSTANCE METHOD
-UserSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
 	// DOES => If user has changed the password, then check if passwords match
 	if (this.passwordChangedAt) {
 		const changedTimestamp = parseInt(
@@ -91,6 +100,22 @@ UserSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
 	return false;
 };
 
-const User = mongoose.model("User", UserSchema);
+//////////////////////////////////////////// CREATE PASSWORD RESET TOKEN INSTANCE METHOD
+userSchema.methods.createPasswordResetToken = function () {
+	const resetToken = crypto.randomBytes(32).toString("hex");
+
+	this.passwordResetToken = crypto
+		.createHash("sha256")
+		.update(resetToken)
+		.digest("hex");
+
+	console.log({ resetToken }, this.passwordResetToken);
+
+	this.passwordResetExpires = Date.now() + 10 * 60 * 1000; // 10 minutes
+
+	return resetToken;
+};
+
+const User = mongoose.model("User", userSchema);
 
 module.exports = User;
