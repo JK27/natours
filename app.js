@@ -14,7 +14,7 @@ const userRouter = require("./routes/userRoutes");
 const app = express();
 
 /////////////////////////////////////////////////////////// GLOBAL MIDDLEWARES
-// DOES => Sets security HTTP headers
+// DOES => Sets security HTTP headers.
 app.use(helmet());
 
 // DOES => Only use morgan when on development.
@@ -54,7 +54,7 @@ app.use(
 	})
 );
 
-// DOES => Serves static files
+// DOES => Serves static files.
 app.use((req, res, next) => {
 	req.requestTime = new Date().toISOString();
 	next();
@@ -64,8 +64,8 @@ app.use((req, res, next) => {
 app.use("/api/v1/tours", tourRouter);
 app.use("/api/v1/users", userRouter);
 
-// DOES => Handles errors for all incorrect urls, urls that don't exist, sending a 404
-// NOTE => This route needs to be last to run to allow valid urls to be found
+// DOES => Handles errors for all incorrect urls, urls that don't exist, sending a 404.
+// NOTE => This route needs to be last to run to allow valid urls to be found.
 app.all("*", (req, res, next) => {
 	next(new AppError(`Cannot find ${req.originalUrl} on this server!`, 404));
 });

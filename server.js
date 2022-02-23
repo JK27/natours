@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 process.on("uncaughtException", err => {
 	console.log("UNCAUGHT EXCEPTION! 💥 SHUTTING DOWN...");
 	console.log(err.name, err.message);
-	// DOES => Gives the server time to finish all pending requests before exiting the application
+	// DOES => Gives the server time to finish all pending requests before exiting the application.
 	process.exit(1);
 });
 
@@ -30,7 +30,7 @@ const server = app.listen(port, () => {
 process.on("unhandledRejection", err => {
 	console.log("UNHANDLED REJECTION! 💥 SHUTTING DOWN...");
 	console.log(err.name, err.message);
-	// DOES => Gives the server time to finish all pending requests before exiting the application
+	// DOES => Gives the server time to finish all pending requests before exiting the application.
 	server.close(() => {
 		process.exit(1);
 	});

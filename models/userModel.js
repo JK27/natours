@@ -99,7 +99,7 @@ userSchema.pre(/^find/, function (next) {
 });
 
 //////////////////////////////////////////// CORRECT PASSWORD INSTANCE METHOD
-// DOES => Compares if password entered for login (candidatePassword) is correct, it is the same as userPassword
+// DOES => Compares if password entered for login (candidatePassword) is correct, it is the same as userPassword.
 userSchema.methods.correctPassword = async function (
 	candidatePassword,
 	userPassword
@@ -109,7 +109,7 @@ userSchema.methods.correctPassword = async function (
 
 //////////////////////////////////////////// CHANGED PASSWORD INSTANCE METHOD
 userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
-	// DOES => If user has changed the password, then check if passwords match
+	// DOES => If user has changed the password, then check if passwords match.
 	if (this.passwordChangedAt) {
 		const changedTimestamp = parseInt(
 			this.passwordChangedAt.getTime() / 1000,

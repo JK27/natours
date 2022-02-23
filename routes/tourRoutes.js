@@ -4,9 +4,6 @@ const authController = require("./../controllers/authController");
 
 const router = express.Router();
 
-/////////////////////////////////////////////////////////// MIDDLEWARE
-// router.param("id", tourController.checkId);
-
 /////////////////////////////////////////////////////////// TOUR ROUTES
 router
 	.route("/top-5-tours")

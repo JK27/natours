@@ -8,10 +8,10 @@ const tourSchema = new mongoose.Schema(
 		////////////////////////////////////////// NAME
 		name: {
 			type: String,
-			// DOES => Sets property as required and adds error message if false
+			// DOES => Sets property as required and adds error message if false.
 			required: [true, "Tour must have a name"],
 			unique: true,
-			// DOES => Removes white space at begining and end of string
+			// DOES => Removes white space at begining and end of string.
 			trim: true,
 			minlength: [10, "Tour name must be at least 10 characters long"],
 			maxlength: [40, "Tour name must be less than 40 characters long"],
@@ -61,7 +61,7 @@ const tourSchema = new mongoose.Schema(
 			type: Number,
 			validate: {
 				validator: function (value) {
-					// NOTE => this only points to current doc on NEW document creation
+					// NOTE => this only points to current doc on NEW document creation.
 					return value < this.price;
 				},
 				message: "Discount price ({VALUE}) must be lower than regular price",
@@ -88,8 +88,8 @@ const tourSchema = new mongoose.Schema(
 		////////////////////////////////////////// CREATED AT
 		createdAt: {
 			type: Date,
-			default: Date.now(), // Mongoose automatically converts it to current date
-			select: false, // createdAt field will not show to the client
+			default: Date.now(), // Mongoose automatically converts it to current date.
+			select: false, // createdAt field will not show to the client.
 		},
 		////////////////////////////////////////// START DATES
 		startDates: [Date],
@@ -97,6 +97,29 @@ const tourSchema = new mongoose.Schema(
 			type: Boolean,
 			default: false,
 		},
+		startLocation: {
+			type: {
+				type: String,
+				default: "Point",
+				enum: ["Point"],
+			},
+			coordinates: [Number],
+			address: String,
+			description: String,
+		},
+		locations: [
+			{
+				type: {
+					type: String,
+					default: "Point",
+					enum: ["Point"],
+				},
+				coordinates: [Number],
+				address: String,
+				description: String,
+				day: Number,
+			},
+		],
 	},
 	////////////////////////////////////////// OPTIONS
 	{
@@ -112,19 +135,14 @@ tourSchema.virtual("durationWeeks").get(function () {
 
 /////////////////////////////////////////////////////////// MIDDLEWARE
 //////////////////////////////////////////// PRE MIDDLEWARE
-///////// DOCUMENT MIDDLEWARE: runs before .save() and .create()
+///////// DOCUMENT MIDDLEWARE: runs before .save() and .create().
 tourSchema.pre("save", function (next) {
 	this.slug = slugify(this.name, { lower: true });
 	next();
 });
 
-// tourSchema.pre("save", function (next) {
-// 	console.log("Will save document...");
-// 	next();
-// });
-
 /////////////////////////////////////////////// QUERY MIDDLEWARE
-// DOES => Hides secret tours from the client, finding only tour with secretTour property not equal to true
+// DOES => Hides secret tours from the client, finding only tour with secretTour property not equal to true.
 tourSchema.pre(/^find/, function (next) {
 	this.find({ secretTour: { $ne: true } });
 	this.start = Date.now();
@@ -144,7 +162,7 @@ tourSchema.pre("aggregate", function (next) {
 	next();
 });
 
-// DOES => Creates a Tour model following tourSchema
+// DOES => Creates a Tour model following tourSchema.
 const Tour = mongoose.model("Tour", tourSchema);
 
 module.exports = Tour;

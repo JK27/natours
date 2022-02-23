@@ -4,7 +4,7 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
 /////////////////////////////////////////////////////////// TOP 5 TOURS ROUTE
-// DOES => Gets top 5 tours based on ratingsAverage and price
+// DOES => Gets top 5 tours based on ratingsAverage and price.
 exports.aliasTopTours = (req, res, next) => {
 	req.query.limit = "5";
 	req.query.sort = "ratingsAverage,price";
@@ -15,14 +15,14 @@ exports.aliasTopTours = (req, res, next) => {
 /////////////////////////////////////////////////////////// GET ALL TOURS ROUTE
 exports.getAllTours = catchAsync(async (req, res, next) => {
 	///////////////////////// EXECUTE QUERY
-	// DOES => Crates a new object of the APIFeatures class. In there, it passes a query object (Tour.find()) and the query string coming from Express (req.query)
+	// DOES => Crates a new object of the APIFeatures class. In there, it passes a query object (Tour.find()) and the query string coming from Express (req.query).
 	const features = new APIFeatures(Tour.find(), req.query)
 		.filter()
 		.sort()
 		.limitFields()
 		.paginate();
 
-	// DOES => Awaits the result of the query to come back with all the documents that were selected
+	// DOES => Awaits the result of the query to come back with all the documents that were selected.
 	const tours = await features.query;
 
 	//////////////////////////////////////// SEND RESPONSE
@@ -37,7 +37,7 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 
 /////////////////////////////////////////////////////////// GET TOUR BY ID ROUTE
 exports.getTourById = catchAsync(async (req, res, next) => {
-	// DOES => Takes ID param from the request to find data for that specific tour, returning only the tour with that specified ID
+	// DOES => Takes ID param from the request to find data for that specific tour, returning only the tour with that specified ID.
 	const tour = await Tour.findById(req.params.id);
 
 	if (!tour) {
@@ -59,7 +59,7 @@ exports.getTourById = catchAsync(async (req, res, next) => {
 	As the function wrapped inside catchAsync is an async function, it will return a Promise. If the Promise is rejected, then the resulting error can be caught using .catch(next), making  that the error ends up in the globalErrorHandler middleware.
 */
 
-// DOES => Creates a new tour based on the Tour Model, getting the data from the body of the request (req.body). Tour.crate(req.body) method creates a Promise that is stored in the newTour var
+// DOES => Creates a new tour based on the Tour Model, getting the data from the body of the request (req.body). Tour.crate(req.body) method creates a Promise that is stored in the newTour var.
 exports.createTour = catchAsync(async (req, res, next) => {
 	const newTour = await Tour.create(req.body);
 	res.status(201).json({
@@ -72,7 +72,7 @@ exports.createTour = catchAsync(async (req, res, next) => {
 
 /////////////////////////////////////////////////////////// UPDATE TOUR ROUTE
 exports.updateTour = catchAsync(async (req, res, next) => {
-	// DOES => Finds tour by ID and updates the body of the request, returning the new document
+	// DOES => Finds tour by ID and updates the body of the request, returning the new document.
 	const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
 		new: true,
 		runValidators: true,
@@ -91,14 +91,14 @@ exports.updateTour = catchAsync(async (req, res, next) => {
 });
 //////////////////////////////////////////////////////////- DELETE TOUR ROUTE
 exports.deleteTour = catchAsync(async (req, res, next) => {
-	// DOES => Finds tour by ID and deletes it, not returning any data back to the client
+	// DOES => Finds tour by ID and deletes it, not returning any data back to the client.
 	const tour = await Tour.findByIdAndDelete(req.params.id);
 
 	if (!tour) {
 		return next(new AppError("No tour found with that ID", 404));
 	}
 
-	// Status is 204 - No content
+	// Status is 204 - No content.
 	res.status(204).json({
 		status: "success",
 		data: null,
@@ -108,7 +108,7 @@ exports.deleteTour = catchAsync(async (req, res, next) => {
 exports.getTourStats = catchAsync(async (req, res, next) => {
 	const stats = await Tour.aggregate([
 		{
-			// DOES => Filters results that match specified properties and values
+			// DOES => Filters results that match specified properties and values.
 			$match: { ratingsAverage: { $gte: 4.5 } },
 		},
 		{
@@ -143,7 +143,7 @@ exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
 
 	const plan = await Tour.aggregate([
 		{
-			// DOES => Deconstructs the array field startDates from the tours object returning a document for each start date of each tour
+			// DOES => Deconstructs the array field startDates from the tours object returning a document for each start date of each tour.
 			$unwind: "$startDates",
 		},
 		{

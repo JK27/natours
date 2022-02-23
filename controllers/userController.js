@@ -12,7 +12,7 @@ const filterObj = (obj, ...allowedFields) => {
 
 /////////////////////////////////////////////////////////// GET ALL USERS
 exports.getAllUsers = catchAsync(async (req, res) => {
-	// DOES => Awaits the result of the query to come back with all the documents that were selected
+	// DOES => Awaits the result of the query to come back with all the documents that were selected.
 	const users = await User.find();
 
 	//////////////////////////////////////// SEND RESPONSE
@@ -38,7 +38,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 	}
 	// DOES => 2) ..filter out fields that are not to be updated...
 	const filteredBody = filterObj(req.body, "name", "email");
-	// DOES => 3) ... and updates the user document
+	// DOES => 3) ... and updates the user document.
 	const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
 		new: true,
 		runValidators: true,

@@ -21,13 +21,13 @@ const createSendToken = (user, statusCode, res) => {
 		expires: new Date(
 			Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
 		),
-		httpOnly: true, // Avoids browser to be able to access or modify cookies
+		httpOnly: true, // Avoids browser to be able to access or modify cookies.
 	};
-	// DOES => Cookie will only be sent in secure sessions
+	// DOES => Cookie will only be sent in secure sessions.
 	if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
 
 	res.cookie("jwt", token, cookieOptions);
-	// DOES => Removes password from the output
+	// DOES => Removes password from the output.
 	user.password = undefined;
 
 	res.status(statusCode).json({
@@ -46,7 +46,7 @@ This anonymous function is the one being called every time a new tour should be 
 As the function wrapped inside catchAsync is an async function, it will return a Promise. If the Promise is rejected, then the resulting error can be caught using .catch(next), making  that the error ends up in the globalErrorHandler middleware.
 */
 
-// DOES => Creates a new user based on the User Model, getting the data from the body of the request (req.body). User.crate(req.body) method creates a Promise that is stored in the newUser var
+// DOES => Creates a new user based on the User Model, getting the data from the body of the request (req.body). User.crate(req.body) method creates a Promise that is stored in the newUser var.
 exports.signup = catchAsync(async (req, res, next) => {
 	const newUser = await User.create({
 		name: req.body.name,
@@ -58,13 +58,13 @@ exports.signup = catchAsync(async (req, res, next) => {
 		active: req.body.active,
 	});
 
-	// DOES => Automatically logs in user after signing up
+	// DOES => Automatically logs in user after signing up.
 	createSendToken(newUser, 201, res);
 });
 
 /////////////////////////////////////////////////////////// LOG IN USER
 exports.login = catchAsync(async (req, res, next) => {
-	// DOES => Gets user's email and password directly from the body of the request
+	// DOES => Gets user's email and password directly from the body of the request.
 	const { email, password } = req.body;
 
 	// DOES => Checks if email and password exist...
@@ -77,7 +77,7 @@ exports.login = catchAsync(async (req, res, next) => {
 	if (!user || !(await user.correctPassword(password, user.password))) {
 		return next(new AppError("Incorrect email or password", 401));
 	}
-	// DOES => ... then send token to the client
+	// DOES => ... then send token to the client.
 	createSendToken(user, 200, res);
 });
 
@@ -107,7 +107,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 	if (!currentUser) {
 		return next(new AppError("This user does no longer exist.", 401));
 	}
-	// DOES => If password has changed, then return a new error
+	// DOES => If password has changed, then return a new error.
 	if (currentUser.changedPasswordAfter(decoded.iat)) {
 		return next(
 			new AppError("The password has been changed. Please log in again.", 401)
@@ -119,7 +119,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 });
 
 /////////////////////////////////////////////////////////// RESTRICT ROUTES MIDDLEWARE
-// DOES => If the role of the current user (req.user) is not a role which that action is restricted to, then return error. If true, then next()
+// DOES => If the role of the current user (req.user) is not a role which that action is restricted to, then return error. If true, then next().
 exports.restrictTo = (...roles) => {
 	return (req, res, next) => {
 		if (!roles.includes(req.user.role)) {
@@ -135,7 +135,7 @@ exports.restrictTo = (...roles) => {
 exports.forgotPassword = catchAsync(async (req, res, next) => {
 	// DOES => 1) Gets user based on posted email...
 	const user = await User.findOne({ email: req.body.email });
-	// DOES => If user does not exit, return error
+	// DOES => If user does not exit, return error.
 	if (!user) {
 		return next(new AppError("There is no user with that email address.", 404));
 	}
@@ -143,7 +143,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 	const resetToken = user.createPasswordResetToken();
 	await user.save({ validateBeforeSave: false });
 
-	// DOES => 3) ... then sends token to user's email
+	// DOES => 3) ... then sends token to user's email.
 	const resetURL = `${req.protocol}://${req.get(
 		"host"
 	)}/api/v1/users/resetPassword/${resetToken}`;
@@ -199,7 +199,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 	await user.save();
 	// DOES => 3) ... updates passwordChangedAt property...
 
-	// DOES => 4) ... logs user in and sends JWT
+	// DOES => 4) ... logs user in and sends JWT.
 	createSendToken(user, 200, res);
 });
 
@@ -215,6 +215,6 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 	user.password = req.body.password;
 	user.passwordConfirm = req.body.passwordConfirm;
 	await user.save();
-	// DOES => 4) ... and logs in user and sends JWT
+	// DOES => 4) ... and logs in user and sends JWT.
 	createSendToken(user, 200, res);
 });
