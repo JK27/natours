@@ -131,6 +131,7 @@ const tourSchema = new mongoose.Schema(
 		],
 	},
 	////////////////////////////////////////// OPTIONS
+	// DOES => Ensures that virtual properties, fields that are not stored in the database but calculated using some other value, also show up in the output.
 	{
 		toJSON: { virtuals: true },
 		toObject: { virtuals: true },
