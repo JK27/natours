@@ -1,10 +1,14 @@
 const express = require("express");
 const tourController = require("./../controllers/tourController");
 const authController = require("./../controllers/authController");
+const reviewRouter = require("./../routes/reviewRoutes");
 
 const router = express.Router();
 
 /////////////////////////////////////////////////////////// TOUR ROUTES
+// DOES => Use reviewRouter for this type of URL
+router.use("/:tourId/reviews", reviewRouter);
+
 router
 	.route("/top-5-tours")
 	.get(tourController.aliasTopTours, tourController.getAllTours);
