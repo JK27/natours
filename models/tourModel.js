@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
-const validator = require("validator");
 
 ////////////////////////////////////////////////////////// TOUR SCHEMA
 const tourSchema = new mongoose.Schema(
@@ -93,10 +92,12 @@ const tourSchema = new mongoose.Schema(
 		},
 		////////////////////////////////////////// START DATES
 		startDates: [Date],
+		////////////////////////////////////////// SECRET TOUR
 		secretTour: {
 			type: Boolean,
 			default: false,
 		},
+		////////////////////////////////////////// START LOCATION
 		startLocation: {
 			type: {
 				type: String,
@@ -107,6 +108,7 @@ const tourSchema = new mongoose.Schema(
 			address: String,
 			description: String,
 		},
+		////////////////////////////////////////// LOCATIONS
 		locations: [
 			{
 				type: {
@@ -118,6 +120,13 @@ const tourSchema = new mongoose.Schema(
 				address: String,
 				description: String,
 				day: Number,
+			},
+		],
+		////////////////////////////////////////// GUIDES
+		guides: [
+			{
+				type: mongoose.Schema.ObjectId,
+				ref: "User",
 			},
 		],
 	},
@@ -134,14 +143,14 @@ tourSchema.virtual("durationWeeks").get(function () {
 });
 
 /////////////////////////////////////////////////////////// MIDDLEWARE
-//////////////////////////////////////////// PRE MIDDLEWARE
-///////// DOCUMENT MIDDLEWARE: runs before .save() and .create().
+//////////////////////////////////////////// DOCUMENT MIDDLEWARE
+// DOES => runs before .save() and .create().
 tourSchema.pre("save", function (next) {
 	this.slug = slugify(this.name, { lower: true });
 	next();
 });
 
-/////////////////////////////////////////////// QUERY MIDDLEWARE
+//////////////////////////////////////////// QUERY MIDDLEWARE
 // DOES => Hides secret tours from the client, finding only tour with secretTour property not equal to true.
 tourSchema.pre(/^find/, function (next) {
 	this.find({ secretTour: { $ne: true } });
@@ -149,13 +158,22 @@ tourSchema.pre(/^find/, function (next) {
 	next();
 });
 
-/////////////////////////////////////////////// POST MIDDLEWARE
+//////////////////////////////////////////// POST MIDDLEWARE
 tourSchema.post(/^find/, function (docs, next) {
 	console.log(`Query took ${Date.now() - this.start} miliseconds`);
 	next();
 });
 
-/////////////////////////////////////////////// AGGREGATION MIDDLEWARE
+//////////////////////////////////////////// POPULATE MIDDLEWARE
+tourSchema.pre(/^find/, function (next) {
+	this.populate({
+		path: "guides",
+		select: "-__v -passwordChangedAt", // Fields not to be populated
+	});
+
+	next();
+});
+//////////////////////////////////////////// AGGREGATION MIDDLEWARE
 tourSchema.pre("aggregate", function (next) {
 	this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
 	console.log(this.pipeline());
