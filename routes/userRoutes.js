@@ -5,26 +5,42 @@ const authController = require("./../controllers/authController");
 const router = express.Router();
 
 /////////////////////////////////////////////////////////// USER ROUTES
+//////////////////////////////////////////// AUHENTICATION ROUTES
 router.post("/signup", authController.signup);
 router.post("/login", authController.login);
 
+//////////////////////////////////////////// PASSWORD ROUTES
 router.post("/forgotPassword", authController.forgotPassword);
 router.patch("/resetPassword/:token", authController.resetPassword);
 
+// DOES => Middleware function protecting all routes coming after it. User must be authenticated in order to be able to access these routes.
+router.use(authController.protect);
+
 router.patch(
 	"/updateMyPassword",
-	authController.protect,
+
 	authController.updatePassword
 );
 
-router.patch("/updateMe", authController.protect, userController.updateMe);
-router.delete("/deleteMe", authController.protect, userController.deleteMe);
+//////////////////////////////////////////// CURRENT USER ROUTES
+router.get(
+	"/me",
 
+	userController.getMe,
+	userController.getUserById
+);
+router.patch("/updateMe", userController.updateMe);
+router.delete("/deleteMe", userController.deleteMe);
+
+// DOES => Restricts access to all routes below only for admin users.
+router.use(authController.restrictTo("admin"));
+//////////////////////////////////////////// ROOT ROUTES
 router
 	.route("/")
 	.get(userController.getAllUsers)
 	.post(userController.createUser);
 
+//////////////////////////////////////////// ID ROUTES
 router
 	.route("/:id")
 	.get(userController.getUserById)

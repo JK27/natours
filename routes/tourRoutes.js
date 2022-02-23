@@ -6,30 +6,50 @@ const reviewRouter = require("./../routes/reviewRoutes");
 const router = express.Router();
 
 /////////////////////////////////////////////////////////// TOUR ROUTES
-// DOES => Use reviewRouter for this type of URL
-router.use("/:tourId/reviews", reviewRouter);
-
-router
-	.route("/top-5-tours")
-	.get(tourController.aliasTopTours, tourController.getAllTours);
-
-router.route("/tour-stats").get(tourController.getTourStats);
-
-router.route("/monthly-plan/:year").get(tourController.getMonthlyPlan);
-
+//////////////////////////////////////////// ROOT
 router
 	.route("/")
-	.get(authController.protect, tourController.getAllTours)
-	.post(tourController.createTour);
+	.get(tourController.getAllTours)
+	.post(
+		authController.protect,
+		authController.restrictTo("admin", "lead-guide"),
+		tourController.createTour
+	);
 
+//////////////////////////////////////////// TOUR ID
 router
 	.route("/:id")
 	.get(tourController.getTourById)
-	.patch(tourController.updateTour)
+	.patch(
+		authController.protect,
+		authController.restrictTo("admin", "lead-guide"),
+		tourController.updateTour
+	)
 	.delete(
 		authController.protect,
 		authController.restrictTo("admin", "lead-guide"),
 		tourController.deleteTour
+	);
+
+//////////////////////////////////////////// TOUR REVIEWS
+// DOES => Use reviewRouter for this type of URL
+router.use("/:tourId/reviews", reviewRouter);
+
+//////////////////////////////////////////// TOP 5 TOURS
+router
+	.route("/top-5-tours")
+	.get(tourController.aliasTopTours, tourController.getAllTours);
+
+//////////////////////////////////////////// TOUR STATS
+router.route("/tour-stats").get(tourController.getTourStats);
+
+//////////////////////////////////////////// MONTHLY PLAN
+router
+	.route("/monthly-plan/:year")
+	.get(
+		authController.protect,
+		authController.restrictTo("admin", "lead-guide", "guide"),
+		tourController.getMonthlyPlan
 	);
 
 module.exports = router;
