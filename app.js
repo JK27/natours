@@ -1,7 +1,6 @@
 const express = require("express");
-const { report } = require("process");
-const { del } = require("express/lib/application");
 const morgan = require("morgan"); // HTTP request logger middleware for node.js
+const ratelimit = require("express-rate-limit");
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
@@ -10,12 +9,21 @@ const userRouter = require("./routes/userRoutes");
 
 const app = express();
 
-/////////////////////////////////////////////////////////// MIDDLEWARES
-// DOES => Only use morgan when on development
+/////////////////////////////////////////////////////////// GLOBAL MIDDLEWARES
+// DOES => Only use morgan when on development.
 if (process.env.NODE_ENV === "development") {
 	app.use(morgan("dev"));
 }
-// DOES => Adds middleware that can modify incoming request data
+
+// DOES => Limits number of requests from the client to prevent denial of service and brute force attacks.
+const limiter = ratelimit({
+	max: 100,
+	windowMs: 60 * 60 * 1000,
+	message: "Too many requests from this IP. Please try again in one hour.",
+});
+app.use("/api", limiter);
+
+// DOES => Adds middleware that can modify incoming request data.
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
 
