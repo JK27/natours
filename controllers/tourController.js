@@ -38,7 +38,7 @@ exports.getAllTours = catchAsync(async (req, res, next) => {
 /////////////////////////////////////////////////////////// GET TOUR BY ID ROUTE
 exports.getTourById = catchAsync(async (req, res, next) => {
 	// DOES => Takes ID param from the request to find data for that specific tour, returning only the tour with that specified ID.
-	const tour = await Tour.findById(req.params.id);
+	const tour = await Tour.findById(req.params.id).populate("reviews");
 
 	if (!tour) {
 		return next(new AppError("No tour found with that ID", 404));
