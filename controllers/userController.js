@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
+const factory = require("./handlerFactory");
 
 const filterObj = (obj, ...allowedFields) => {
 	const newObj = {};
@@ -10,22 +11,24 @@ const filterObj = (obj, ...allowedFields) => {
 	return newObj;
 };
 
-/////////////////////////////////////////////////////////// GET ALL USERS
-exports.getAllUsers = catchAsync(async (req, res) => {
-	// DOES => Awaits the result of the query to come back with all the documents that were selected.
-	const users = await User.find();
-
-	//////////////////////////////////////// SEND RESPONSE
-	res.status(200).json({
-		status: "success",
-		results: users.length,
-		data: {
-			users,
-		},
+/////////////////////////////////////////////////////////// CREATE USER
+exports.createUser = (req, res) => {
+	res.status(500).json({
+		status: "error",
+		message: "This route is not defined. Please use sign up instead.",
 	});
-});
+};
 
 /////////////////////////////////////////////////////////// UPDATE USER
+exports.updateUser = exports.updateTour = factory.updateOne(User);
+
+//////////////////////////////////////////////////////////- DELETE USER
+exports.deleteUser = factory.deleteOne(User);
+
+/////////////////////////////////////////////////////////// GET ALL USERS
+exports.getAllUsers = factory.getAll(User);
+
+/////////////////////////////////////////////////////////// UPDATE CURRENT USER
 exports.updateMe = catchAsync(async (req, res, next) => {
 	// DOES => 1) Creates error if user posts password data...
 	if (req.body.password || req.body.passwordConfirm) {
@@ -52,8 +55,9 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 	});
 });
 
-//////////////////////////////////////////////////////////- DELETE USER
+//////////////////////////////////////////////////////////- SET USER INACTIVE
 exports.deleteMe = catchAsync(async (req, res, next) => {
+	// DOES => It does not actually delete the user, but only set its status to active: false. Only admins can delete users.
 	await User.findByIdAndUpdate(req.user.id, { active: false });
 	res.status(204).json({
 		status: "success",
@@ -61,33 +65,4 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
 	});
 });
 /////////////////////////////////////////////////////////// GET USER BY ID
-exports.getUserById = (req, res) => {
-	res.status(500).json({
-		status: "error",
-		message: "This route is not yet defined.",
-	});
-};
-
-//////////////////////////////////////////// CREATE USER
-exports.createUser = (req, res) => {
-	res.status(500).json({
-		status: "error",
-		message: "This route is not yet defined.",
-	});
-};
-
-//////////////////////////////////////////// UPDATE USER
-exports.updateUser = (req, res) => {
-	res.status(500).json({
-		status: "error",
-		message: "This route is not yet defined.",
-	});
-};
-
-///////////////////////////////////////////- DELETE USER
-exports.deleteUser = (req, res) => {
-	res.status(500).json({
-		status: "error",
-		message: "This route is not yet defined.",
-	});
-};
+exports.getUserById = factory.getOne(User);
