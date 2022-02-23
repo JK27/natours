@@ -1,6 +1,9 @@
 const express = require("express");
 const morgan = require("morgan"); // HTTP request logger middleware for node.js
 const ratelimit = require("express-rate-limit");
+const helmet = require("helmet");
+const mongoSanitize = require("express-mongo-sanitize");
+const xss = require("xss-clean");
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
@@ -10,6 +13,9 @@ const userRouter = require("./routes/userRoutes");
 const app = express();
 
 /////////////////////////////////////////////////////////// GLOBAL MIDDLEWARES
+// DOES => Sets security HTTP headers
+app.use(helmet());
+
 // DOES => Only use morgan when on development.
 if (process.env.NODE_ENV === "development") {
 	app.use(morgan("dev"));
@@ -23,10 +29,17 @@ const limiter = ratelimit({
 });
 app.use("/api", limiter);
 
-// DOES => Adds middleware that can modify incoming request data.
-app.use(express.json());
+// DOES => Adds middleware that can modify incoming request data, enabling reading data from the body of the request.
+app.use(express.json({ limit: "10kb" }));
 app.use(express.static(`${__dirname}/public`));
 
+// DOES => Data sanitization against NoSql query injection. Looks at request body, query string and params and filters out all '$' and '.' characters used in mongoDB operators.
+app.use(mongoSanitize());
+
+// DOES => Data sanitization against XSS attacks.
+app.use(xss());
+
+// DOES => Serves static files
 app.use((req, res, next) => {
 	req.requestTime = new Date().toISOString();
 	next();
