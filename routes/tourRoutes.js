@@ -6,6 +6,9 @@ const reviewRouter = require("./../routes/reviewRoutes");
 const router = express.Router();
 
 /////////////////////////////////////////////////////////// TOUR ROUTES
+// DOES => When finding this URL, use the reviewRouter instead.
+router.use("/:tourId/reviews", reviewRouter);
+
 //////////////////////////////////////////// ROOT
 router
 	.route("/")
@@ -30,10 +33,6 @@ router
 		authController.restrictTo("admin", "lead-guide"),
 		tourController.deleteTour
 	);
-
-//////////////////////////////////////////// TOUR REVIEWS
-// DOES => Use reviewRouter for this type of URL
-router.use("/:tourId/reviews", reviewRouter);
 
 //////////////////////////////////////////// TOP 5 TOURS
 router

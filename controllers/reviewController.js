@@ -10,7 +10,7 @@ exports.setTourUserIds = (req, res, next) => {
 	if (!req.body.user) req.body.user = req.user.id;
 	next();
 };
-// DOES => Creates a new review based on the Review Model, getting the data from the body of the request (req.body). Review.crate(req.body) method creates a Promise that is stored in the newReview var.
+// DOES => Creates a new review based on the Review Model, getting the data from the body of the request (req.body).
 exports.createReview = factory.createOne(Review);
 
 /////////////////////////////////////////////////////////// UPDATE REVIEW ROUTE
