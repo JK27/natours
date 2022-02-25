@@ -140,3 +140,48 @@ exports.getAllToursWithin = catchAsync(async (req, res, next) => {
 		},
 	});
 });
+
+/////////////////////////////////////////////////////////// GET TOURS DISTANCE
+exports.getDistances = catchAsync(async (req, res, next) => {
+	const { latlng, unit } = req.params;
+	// DOES => Creates variables for lat and lng by destructuring from the latlng parameter.
+	const [lat, lng] = latlng.split(",");
+	// DOES => If unit specified in params is 'miles', then converts distance from meters to miles, otherwise convert distance from meters to km.
+	const multiplier = unit === "mi" ? 0.000621371 : 0.001;
+
+	if (!lat || !lng) {
+		next(
+			new AppError(
+				"Please provide latitude and longitude in the the format: lat,lng.",
+				400
+			)
+		);
+	}
+
+	const distances = await Tour.aggregate([
+		{
+			// NOTE => $geoNear always needs to be the first stage.
+			$geoNear: {
+				near: {
+					type: "point",
+					coordinates: [lng * 1, lat * 1],
+				},
+				distanceField: "distance",
+				distanceMultiplier: multiplier,
+			},
+		},
+		{
+			$project: {
+				distance: 1,
+				name: 1,
+			},
+		},
+	]);
+
+	res.status(200).json({
+		status: "success",
+		data: {
+			data: distances,
+		},
+	});
+});

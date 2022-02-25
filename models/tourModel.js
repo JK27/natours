@@ -147,7 +147,6 @@ tourSchema.index({ startLocation: "2dsphere" });
 
 /////////////////////////////////////////////////////////// VIRTUAL PROPERTIES
 //////////////////////////////////////////// VIRTUAL DURATION WEEKS
-//////////////////////////////////////////// VIRTUAL DURATION WEEKS
 tourSchema.virtual("durationWeeks").get(function () {
 	return this.duration / 7;
 });
@@ -191,11 +190,11 @@ tourSchema.pre(/^find/, function (next) {
 	next();
 });
 //////////////////////////////////////////// AGGREGATION MIDDLEWARE
-tourSchema.pre("aggregate", function (next) {
-	this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
-	console.log(this.pipeline());
-	next();
-});
+// tourSchema.pre("aggregate", function (next) {
+// 	this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
+// 	console.log(this.pipeline());
+// 	next();
+// });
 
 // DOES => Creates a Tour model following tourSchema.
 const Tour = mongoose.model("Tour", tourSchema);
