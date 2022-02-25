@@ -44,6 +44,8 @@ const tourSchema = new mongoose.Schema(
 			default: 4.5,
 			min: [1, "Rating must be above 1.0"],
 			max: [5, "Rating must be below 5.1"],
+			// DOES => Rounds up the value to avoid periodic numbers (i.e. 4.6666666). It rounds up the value by multiplying it by 10 and then divinding by 10 as .round() returns nearest integer. 4.666666 * 10 = 47 / 10 = 4.7.
+			set: val => Math.round(val * 10) / 10,
 		},
 		////////////////////////////////////////// RATINGS QUANTITY
 		ratingsQuantity: {

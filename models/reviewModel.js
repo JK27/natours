@@ -43,6 +43,10 @@ const reviewSchema = new mongoose.Schema(
 	}
 );
 
+/////////////////////////////////////////////////////////// INDEXES
+// DOES => Prevents a user to post multiple reviews for the same tour, making the compound index tour and user unique.
+reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
+
 /////////////////////////////////////////////////////////// MIDDLEWARE
 //////////////////////////////////////////// POPULATE MIDDLEWARE
 reviewSchema.pre(/^find/, function (next) {
