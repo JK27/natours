@@ -9,6 +9,12 @@ const router = express.Router();
 // DOES => When finding this URL, use the reviewRouter instead.
 router.use("/:tourId/reviews", reviewRouter);
 
+//////////////////////////////////////////// TOURS WITHIN
+// DOES => i.e. /tours-within/250/center/42.92635035090456, -71.48275451623525/unit/mi
+router
+	.route("/tours-within/:distance/center/:latlng/unit/:unit")
+	.get(tourController.getAllToursWithin);
+
 //////////////////////////////////////////// ROOT
 router
 	.route("/")
