@@ -15,6 +15,14 @@ router
 	.route("/tours-within/:distance/center/:latlng/unit/:unit")
 	.get(tourController.getAllToursWithin);
 
+//////////////////////////////////////////// TOP 5 TOURS
+router
+	.route("/top-5-tours")
+	.get(tourController.aliasTopTours, tourController.getAllTours);
+
+//////////////////////////////////////////// TOUR STATS
+router.route("/tour-stats").get(tourController.getTourStats);
+
 //////////////////////////////////////////// GET TOURS DISTANCE
 router.route("/distances/:latlng/unit/:unit").get(tourController.getDistances);
 //////////////////////////////////////////// ROOT
@@ -41,14 +49,6 @@ router
 		authController.restrictTo("admin", "lead-guide"),
 		tourController.deleteTour
 	);
-
-//////////////////////////////////////////// TOP 5 TOURS
-router
-	.route("/top-5-tours")
-	.get(tourController.aliasTopTours, tourController.getAllTours);
-
-//////////////////////////////////////////// TOUR STATS
-router.route("/tour-stats").get(tourController.getTourStats);
 
 //////////////////////////////////////////// MONTHLY PLAN
 router
