@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const morgan = require("morgan"); // HTTP request logger middleware for node.js
 const ratelimit = require("express-rate-limit");
@@ -14,7 +15,15 @@ const reviewRouter = require("./routes/reviewRoutes");
 
 const app = express();
 
+/////////////////////////////////////////////////////////// TEMPLATE ENGINE
+// DOES => Sets "pug" as the template engine.
+app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
+
 /////////////////////////////////////////////////////////// GLOBAL MIDDLEWARES
+// DOES => Serves static files.
+app.use(express.static(path.join(__dirname, "public")));
+
 // DOES => Sets security HTTP headers.
 app.use(helmet());
 
@@ -30,10 +39,6 @@ const limiter = ratelimit({
 	message: "Too many requests from this IP. Please try again in one hour.",
 });
 app.use("/api", limiter);
-
-// DOES => Adds middleware that can modify incoming request data, enabling reading data from the body of the request.
-app.use(express.json({ limit: "10kb" }));
-app.use(express.static(`${__dirname}/public`));
 
 // DOES => Data sanitization against NoSql query injection. Looks at request body, query string and params and filters out all '$' and '.' characters used in mongoDB operators.
 app.use(mongoSanitize());
@@ -55,13 +60,22 @@ app.use(
 	})
 );
 
-// DOES => Serves static files.
+// DOES => Adds middleware that can modify incoming request data, enabling reading data from the body of the request.
 app.use((req, res, next) => {
 	req.requestTime = new Date().toISOString();
 	next();
 });
 
 /////////////////////////////////////////////////////////// ROUTES
+//////////////////////////////////////////// TEMPLATE ROUTES
+app.get("/", (req, res) => {
+	res.status(200).render("base", {
+		tour: "The Forest Hiker",
+		user: "Jonas",
+	});
+});
+
+//////////////////////////////////////////// API ROUTES
 app.use("/api/v1/tours", tourRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/reviews", reviewRouter);
