@@ -1,4 +1,52 @@
 extends base
 
 block content
-  h1 This is the tour overview
+  ///////////////////////////////////////////////////////// MAIN
+  main.main
+    //////////////////////////////////////// CARD CONTAINER
+    .card-container
+      each tour in tours 
+        .card
+          //////////////////////// CARD HEADER
+          .card__header
+            .card__picture
+              .card__picture-overlay &nbsp;
+              img.card__picture-img(src=`img/tours/${tour.imageCover}`, alt=`${tour_name}`)
+            h3.heading-tertirary
+              span= tour.name 
+          //////////////////////// CARD DETAILS
+          .card__details
+            /////// TOUR SUMMARY
+            h4.card__sub-heading= `${tour.difficulty} ${tour.duration}-day tour`
+            p.card__text= tour.summary
+            /////// TOUR START LOCATION
+            .card__data
+              svg.card__icon
+                use(xlink:href='img/icons.svg#icon-map-pin')
+              span= tour.startLocation.description
+            /////// TOUR START DATES
+            .card__data
+              svg.card__icon
+                use(xlink:href='img/icons.svg#icon-calendar')
+              span= tour.startDates[0].toLocaleString('en-us', {month: 'long', year: 'numeric'})
+            /////// TOUR LOCATIONS
+            .card__data
+              svg.card__icon
+                use(xlink:href='img/icons.svg#icon-flag')
+              span= `${tour.locations.length} stops`
+            /////// TOUR GROUP SIZE
+            .card__data
+              svg.card__icon
+                use(xlink:href='img/icons.svg#icon-user')
+              span= `${tour.maxGroupSize} people`
+          /////////////////////// CARD FOOTER
+          .card__footer
+            p
+              span.card__footer-value= `$${tour.price}`
+              | 
+              span.card__footer-text per person
+            p.card__ratings
+              span.card__footer-value= tour.ratingsAverage
+              | 
+              span.card__footer-text= `rating (${(tour.ratingsQuantity)})`
+            a.btn.btn--green.btn--small(href=`/tours/${tour.slug}`) Details
