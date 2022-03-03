@@ -11,7 +11,7 @@ block content
           .card__header
             .card__picture
               .card__picture-overlay &nbsp;
-              img.card__picture-img(src=`img/tours/${tour.imageCover}`, alt=`${tour_name}`)
+              img.card__picture-img(src=`/img/tours/${tour.imageCover}`, alt=`${tour_name}`)
             h3.heading-tertirary
               span= tour.name 
           //////////////////////// CARD DETAILS
@@ -22,22 +22,22 @@ block content
             /////// TOUR START LOCATION
             .card__data
               svg.card__icon
-                use(xlink:href='img/icons.svg#icon-map-pin')
+                use(xlink:href='/img/icons.svg#icon-map-pin')
               span= tour.startLocation.description
             /////// TOUR START DATES
             .card__data
               svg.card__icon
-                use(xlink:href='img/icons.svg#icon-calendar')
+                use(xlink:href='/img/icons.svg#icon-calendar')
               span= tour.startDates[0].toLocaleString('en-us', {month: 'long', year: 'numeric'})
             /////// TOUR LOCATIONS
             .card__data
               svg.card__icon
-                use(xlink:href='img/icons.svg#icon-flag')
+                use(xlink:href='/img/icons.svg#icon-flag')
               span= `${tour.locations.length} stops`
             /////// TOUR GROUP SIZE
             .card__data
               svg.card__icon
-                use(xlink:href='img/icons.svg#icon-user')
+                use(xlink:href='/img/icons.svg#icon-user')
               span= `${tour.maxGroupSize} people`
           /////////////////////// CARD FOOTER
           .card__footer
@@ -49,4 +49,4 @@ block content
               span.card__footer-value= tour.ratingsAverage
               | 
               span.card__footer-text= `rating (${(tour.ratingsQuantity)})`
-            a.btn.btn--green.btn--small(href=`/tours/${tour.slug}`) Details
+            a.btn.btn--green.btn--small(href=`/tour/${tour.slug}`) Details
