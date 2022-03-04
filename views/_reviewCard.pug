@@ -1,0 +1,15 @@
+//- /////////////////////////////////////////////////////// REVIEW CARD
+mixin reviewCard(review)
+  .reviews__card
+    //- ///////////////////// REVIEW AVATAR
+    .reviews__avatar
+      img.reviews__avatar-img(src=`/img/users/${review.user.photo}`, alt=`${review.user.name}`)
+      h6.reviews__user= review.user.name 
+    //- ///////////////////// REVIEW TEXT
+    p.reviews__text= review.review
+    //- ///////////////////// REVIEW RATING
+    .reviews__rating
+      //- Iterates up to 5 times and, in each iteration, checks if the number in the tour rating is gte than the current iteration. If true, then adds that star, if false it leaves that star and the following ones as inactive.
+      each star in [1, 2, 3, 4, 5]
+        svg.reviews__star(class=`reviews__star--${review.rating >= star ? 'active' : 'inactive'}`)
+          use(xlink:href='/img/icons.svg#icon-star')
