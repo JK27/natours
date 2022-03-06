@@ -16,17 +16,22 @@ exports.getOverview = catchAsync(async (req, res, next) => {
 });
 /////////////////////////////////////////////////////////// GET OVERVIEW
 exports.getTour = catchAsync(async (req, res, next) => {
-	// DOES => 1) Gets the data for the requested tour
+	// DOES => Gets the data for the requested tour
 	const tour = await Tour.findOne({ slug: req.params.slug }).populate({
 		path: "reviews",
 		fields: "review rating user",
 	});
 
-	// DOES => 2) Builds the template.
-	// DOES => 3) Renders the template using data from step 1.
-
+	// DOES => Renders the template using data from step 1.
 	res.status(200).render("tour", {
 		title: `${tour.name} Tour`,
 		tour,
 	});
 });
+
+/////////////////////////////////////////////////////////// GET LOG IN FORM
+exports.getLoginForm = (req, res) => {
+	res.status(200).render("login", {
+		title: "Log in",
+	});
+};

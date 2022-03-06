@@ -28,13 +28,10 @@ exports.createUser = (req, res) => {
 
 /////////////////////////////////////////////////////////// UPDATE USER
 exports.updateUser = exports.updateTour = factory.updateOne(User);
-
 //////////////////////////////////////////////////////////- DELETE USER
 exports.deleteUser = factory.deleteOne(User);
-
 /////////////////////////////////////////////////////////// GET ALL USERS
 exports.getAllUsers = factory.getAll(User);
-
 /////////////////////////////////////////////////////////// UPDATE CURRENT USER
 exports.updateMe = catchAsync(async (req, res, next) => {
 	// DOES => 1) Creates error if user posts password data...

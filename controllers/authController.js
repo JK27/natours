@@ -64,7 +64,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 /////////////////////////////////////////////////////////// LOG IN USER
 exports.login = catchAsync(async (req, res, next) => {
-	// DOES => Gets user's email and password directly from the body of the request.
+	// DOES => Reads user's email and password directly from the body of the request.
 	const { email, password } = req.body;
 
 	// DOES => Checks if email and password exist...
@@ -90,9 +90,13 @@ exports.protect = catchAsync(async (req, res, next) => {
 		req.headers.authorization.startsWith("Bearer")
 	) {
 		token = req.headers.authorization.split(" ")[1];
+		// DOES => ... if there is no token but there is a cookie, then the token is the cookie...
+	} else if (req.cookies.jwt) {
+		token = req.cookies.jwt;
 	}
-	// DOES => 2) ... if there is no token, gives 401 error...
+
 	if (!token) {
+		// DOES => 2) ... if there is no token, gives 401 error...
 		return next(
 			new AppError(
 				"You are not logged in. Please log in or sign up to get access",

@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
+const cookieParser = require("cookie-parser");
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
@@ -22,17 +23,21 @@ app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
 /////////////////////////////////////////////////////////// GLOBAL MIDDLEWARES
+//////////////////////////////////////////// EXPRESS STATIC
 // DOES => Serves static files.
 app.use(express.static(path.join(__dirname, "public")));
 
+//////////////////////////////////////////// HELMET
 // DOES => Sets security HTTP headers.
 app.use(helmet());
 
-// DOES => Only use morgan when on development.
+//////////////////////////////////////////// MORGAN
+// DOES => Only use morgan for logging when on development.
 if (process.env.NODE_ENV === "development") {
 	app.use(morgan("dev"));
 }
 
+//////////////////////////////////////////// LIMITER
 // DOES => Limits number of requests from the client to prevent denial of service and brute force attacks.
 const limiter = ratelimit({
 	max: 100,
@@ -41,6 +46,13 @@ const limiter = ratelimit({
 });
 app.use("/api", limiter);
 
+//////////////////////////////////////////// BODY PARSER
+// DOES => Body parser, reading data from body into req.body
+app.use(express.json({ limit: "10kb" }));
+// app.use(express.urlencoded({ extended: true, limit: "10kb" }));
+app.use(cookieParser());
+
+//////////////////////////////////////////// DATA SANITIZATION
 // DOES => Data sanitization against NoSql query injection. Looks at request body, query string and params and filters out all '$' and '.' characters used in mongoDB operators.
 app.use(mongoSanitize());
 
@@ -61,9 +73,11 @@ app.use(
 	})
 );
 
+//////////////////////////////////////////// TEST MIDDLEWARE
 // DOES => Adds middleware that can modify incoming request data, enabling reading data from the body of the request.
 app.use((req, res, next) => {
 	req.requestTime = new Date().toISOString();
+	console.log(req.cookies);
 	next();
 });
 

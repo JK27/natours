@@ -99,7 +99,7 @@ userSchema.pre(/^find/, function (next) {
 });
 
 //////////////////////////////////////////// CORRECT PASSWORD INSTANCE METHOD
-// DOES => Compares if password entered for login (candidatePassword) is correct, it is the same as userPassword.
+// DOES => Compares if password entered for login (candidatePassword) is correct, it is the same as userPassword. Needs bcrypt.compare() as userPassword is hashed.
 userSchema.methods.correctPassword = async function (
 	candidatePassword,
 	userPassword

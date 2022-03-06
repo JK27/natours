@@ -16,11 +16,7 @@ router.patch("/resetPassword/:token", authController.resetPassword);
 // DOES => Middleware function protecting all routes coming after it. User must be authenticated in order to be able to access these routes.
 router.use(authController.protect);
 
-router.patch(
-	"/updateMyPassword",
-
-	authController.updatePassword
-);
+router.patch("/updateMyPassword", authController.updatePassword);
 
 //////////////////////////////////////////// CURRENT USER ROUTES
 router.get(
