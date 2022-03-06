@@ -1,10 +1,12 @@
 import "@babel/polyfill";
 import { displayMap } from "./mapbox";
 import { login } from "./login";
+import { logout } from "./login";
 
 /////////////////////////////////////////////////////////// DOM ELEMENTS
 const mapBox = document.getElementById("map");
 const loginForm = document.querySelector(".form");
+const logOutBtn = document.querySelector(".nav__el--logout");
 
 /////////////////////////////////////////////////////////// DISPLAY MAP
 if (mapBox) {
@@ -12,7 +14,8 @@ if (mapBox) {
 	displayMap(locations);
 }
 
-/////////////////////////////////////////////////////////// SUBMIT EVENT LISTENER
+/////////////////////////////////////////////////////////// EVENT LISTENERS
+//////////////////////////////////////////// LOG IN
 if (loginForm) {
 	loginForm.addEventListener("submit", e => {
 		// DOES => Prevents form from loading any other page.
@@ -23,3 +26,5 @@ if (loginForm) {
 		login(email, password);
 	});
 }
+//////////////////////////////////////////// LOG OUT
+if (logOutBtn) logOutBtn.addEventListener("click", logout);

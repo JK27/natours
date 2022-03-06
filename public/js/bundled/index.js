@@ -149,12 +149,14 @@ var _login = require("./login");
 /////////////////////////////////////////////////////////// DOM ELEMENTS
 const mapBox = document.getElementById("map");
 const loginForm = document.querySelector(".form");
+const logOutBtn = document.querySelector(".nav__el--logout");
 /////////////////////////////////////////////////////////// DISPLAY MAP
 if (mapBox) {
     const locations = JSON.parse(mapBox.dataset.locations);
     _mapbox.displayMap(locations);
 }
-/////////////////////////////////////////////////////////// SUBMIT EVENT LISTENER
+/////////////////////////////////////////////////////////// EVENT LISTENERS
+//////////////////////////////////////////// LOG IN
 if (loginForm) loginForm.addEventListener("submit", (e)=>{
     // DOES => Prevents form from loading any other page.
     e.preventDefault();
@@ -163,6 +165,8 @@ if (loginForm) loginForm.addEventListener("submit", (e)=>{
     const password = document.getElementById("password").value;
     _login.login(email, password);
 });
+//////////////////////////////////////////// LOG OUT
+if (logOutBtn) logOutBtn.addEventListener("click", _login.logout);
 
 },{"@babel/polyfill":"dTCHC","./mapbox":"3zDlz","./login":"7yHem"}],"dTCHC":[function(require,module,exports) {
 "use strict";
@@ -7295,6 +7299,8 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "login", ()=>login
 );
+parcelHelpers.export(exports, "logout", ()=>logout
+);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _alerts = require("./alerts");
@@ -7316,6 +7322,23 @@ const login = async (email, password)=>{
         }
     } catch (err) {
         _alerts.showAlert("error", err.response.data.message);
+    }
+};
+const logout = async ()=>{
+    try {
+        const res = await _axiosDefault.default({
+            method: "GET",
+            url: "http://127.0.0.1:8000/api/v1/users/logout"
+        });
+        // DOES => If logged out successfully, then force a reload from the server.
+        if (res.data.status === "success") {
+            _alerts.showAlert("success", "Logged out successfully.");
+            window.setTimeout(()=>{
+                location.reload(true);
+            }, 1000);
+        }
+    } catch (err) {
+        _alerts.showAlert("error", "Error logging out. Please try again.");
     }
 };
 

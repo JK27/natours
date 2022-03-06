@@ -5,6 +5,7 @@ const User = require("./../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("./../utils/appError");
 const sendEmail = require("./../utils/email");
+const res = require("express/lib/response");
 
 /////////////////////////////////////////////////////////// SIGN TOKEN
 const signToken = id => {
@@ -81,6 +82,14 @@ exports.login = catchAsync(async (req, res, next) => {
 	createSendToken(user, 200, res);
 });
 
+/////////////////////////////////////////////////////////// LOG OUT
+exports.logout = (req, res) => {
+	res.cookie("jwt", "logged-out", {
+		expires: new Date(Date.now() + 1 * 10000),
+		httpOnly: true, // Avoids browser to be able to access or modify cookies.
+	});
+	res.status(200).json({ status: "success" });
+};
 /////////////////////////////////////////////////////////// PROTECT ROUTES MIDDLEWARE
 exports.protect = catchAsync(async (req, res, next) => {
 	let token;
@@ -123,29 +132,33 @@ exports.protect = catchAsync(async (req, res, next) => {
 });
 
 /////////////////////////////////////////////////////////// IS LOGGED IN MIDDLEWARE
-exports.isLoggedIn = catchAsync(async (req, res, next) => {
+exports.isLoggedIn = async (req, res, next) => {
 	// DOES => 1) checks if there is a cookie with a token...
 	if (req.cookies.jwt) {
-		// DOES => 2) ... if cookie exists, then verifies the token...
-		const decoded = await promisify(jwt.verify)(
-			req.cookies.jwt,
-			process.env.JWT_SECRET
-		);
-		// DOES => 3) ... and if user still exists...
-		const currentUser = await User.findById(decoded.id);
-		if (!currentUser) {
+		try {
+			// DOES => 2) ... if cookie exists, then verifies the token...
+			const decoded = await promisify(jwt.verify)(
+				req.cookies.jwt,
+				process.env.JWT_SECRET
+			);
+			// DOES => 3) ... and if user still exists...
+			const currentUser = await User.findById(decoded.id);
+			if (!currentUser) {
+				return next();
+			}
+			// DOES => Checks if password has changed.
+			if (currentUser.changedPasswordAfter(decoded.iat)) {
+				return next();
+			}
+			// DOES => 4) ... and if user has not changed password after token was issued, then there is a logged in user.
+			res.locals.user = currentUser;
+			return next();
+		} catch (err) {
 			return next();
 		}
-		// DOES => Checks if password has changed.
-		if (currentUser.changedPasswordAfter(decoded.iat)) {
-			return next();
-		}
-		// DOES => 4) ... and if user has not changed password after token was issued, then there is a logged in user.
-		res.locals.user = currentUser;
-		return next();
 	}
 	next();
-});
+};
 
 /////////////////////////////////////////////////////////// RESTRICT ROUTES MIDDLEWARE
 // DOES => If the role of the current user (req.user) is not a role which that action is restricted to, then return error. If true, then next().
