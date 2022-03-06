@@ -122,6 +122,31 @@ exports.protect = catchAsync(async (req, res, next) => {
 	next();
 });
 
+/////////////////////////////////////////////////////////// IS LOGGED IN MIDDLEWARE
+exports.isLoggedIn = catchAsync(async (req, res, next) => {
+	// DOES => 1) checks if there is a cookie with a token...
+	if (req.cookies.jwt) {
+		// DOES => 2) ... if cookie exists, then verifies the token...
+		const decoded = await promisify(jwt.verify)(
+			req.cookies.jwt,
+			process.env.JWT_SECRET
+		);
+		// DOES => 3) ... and if user still exists...
+		const currentUser = await User.findById(decoded.id);
+		if (!currentUser) {
+			return next();
+		}
+		// DOES => Checks if password has changed.
+		if (currentUser.changedPasswordAfter(decoded.iat)) {
+			return next();
+		}
+		// DOES => 4) ... and if user has not changed password after token was issued, then there is a logged in user.
+		res.locals.user = currentUser;
+		return next();
+	}
+	next();
+});
+
 /////////////////////////////////////////////////////////// RESTRICT ROUTES MIDDLEWARE
 // DOES => If the role of the current user (req.user) is not a role which that action is restricted to, then return error. If true, then next().
 exports.restrictTo = (...roles) => {

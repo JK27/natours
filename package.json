@@ -3,14 +3,20 @@
 	"version": "1.0.0",
 	"description": "Learning node, express and mongoDB",
 	"main": "app.js",
+	"targets": {
+		"main": false
+	},
 	"scripts": {
 		"start": "nodemon server.js",
 		"start:prod": "SET NODE_ENV=production&& nodemon server.js",
-		"debug": "ndb server.js"
+		"debug": "ndb server.js",
+		"watch:js": "parcel serve --no-hmr ./public/js/index.js --dist-dir ./public/js/bundled",
+		"build:js": "parcel build ./public/js/index.js --dist-dir ./public/js/bundled"
 	},
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"@babel/polyfill": "^7.12.1",
 		"axios": "^0.26.0",
 		"bcryptjs": "^2.4.3",
 		"cookie-parser": "^1.4.6",
@@ -38,6 +44,8 @@
 		"eslint-plugin-jsx-a11y": "^6.5.1",
 		"eslint-plugin-node": "^11.1.0",
 		"eslint-plugin-prettier": "^4.0.0",
-		"eslint-plugin-react": "^7.28.0"
+		"eslint-plugin-react": "^7.28.0",
+		"parcel": "^2.3.2",
+		"process": "^0.11.10"
 	}
 }
