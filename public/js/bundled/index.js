@@ -152,6 +152,7 @@ const mapBox = document.getElementById("map");
 const loginForm = document.querySelector(".form--login");
 const logOutBtn = document.querySelector(".nav__el--logout");
 const userDataForm = document.querySelector(".form-user-data");
+const userPasswordForm = document.querySelector(".form-user-password");
 /////////////////////////////////////////////////////////// DISPLAY MAP
 if (mapBox) {
     const locations = JSON.parse(mapBox.dataset.locations);
@@ -169,12 +170,33 @@ if (loginForm) loginForm.addEventListener("submit", (e)=>{
 });
 //////////////////////////////////////////// LOG OUT
 if (logOutBtn) logOutBtn.addEventListener("click", _login.logout);
-//////////////////////////////////////////// UPDATE USER SETTINGS
+//////////////////////////////////////////// UPDATE USER DATA
 if (userDataForm) userDataForm.addEventListener("submit", (e)=>{
     e.preventDefault();
     const email = document.getElementById("email").value;
     const name = document.getElementById("name").value;
-    _updateSettings.updateData(name, email);
+    _updateSettings.updateSettings({
+        name,
+        email
+    }, "data");
+});
+//////////////////////////////////////////// UPDATE USER PASSWORD
+if (userPasswordForm) userPasswordForm.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    document.querySelector(".btn--save-password").textContent = "Updating...";
+    const passwordCurrent = document.getElementById("password-current").value;
+    const password = document.getElementById("password").value;
+    const passwordConfirm = document.getElementById("password-confirm").value;
+    await _updateSettings.updateSettings({
+        passwordCurrent,
+        password,
+        passwordConfirm
+    }, "password");
+    document.querySelector(".btn--save-password").textContent = "Save password";
+    // DOES => Clears out contents of input fields after reloading the page.
+    document.getElementById("password-current").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("password-confirm").value = "";
 });
 
 },{"@babel/polyfill":"dTCHC","./mapbox":"3zDlz","./login":"7yHem","./updateSettings":"l3cGY"}],"dTCHC":[function(require,module,exports) {
@@ -8935,22 +8957,21 @@ const showAlert = (type, message)=>{
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"l3cGY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "updateData", ()=>updateData
+parcelHelpers.export(exports, "updateSettings", ()=>updateSettings
 );
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _alerts = require("./alerts");
-const updateData = async (name, email)=>{
+const updateSettings = async (data, type)=>{
     try {
+        // DOES => If the type is password, it uses /updateMyPassword. Otherwise, it uses /updateMe.
+        const url = type === "password" ? "http://127.0.0.1:8000/api/v1/users/updateMyPassword" : "http://127.0.0.1:8000/api/v1/users/updateMe";
         const res = await _axiosDefault.default({
             method: "PATCH",
-            url: "http://127.0.0.1:8000/api/v1/users/updateMe",
-            data: {
-                name,
-                email
-            }
+            url: url,
+            data: data
         });
-        if (res.data.status === "success") _alerts.showAlert("success", "Data updated successfully.");
+        if (res.data.status === "success") _alerts.showAlert("success", `${type.toUpperCase()} updated successfully.`);
     } catch (err) {
         _alerts.showAlert("error", err.response.data.message);
     }
