@@ -128,6 +128,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 	}
 	// DOES => 5) ... and if user has not changed password after token was issued, then grant access to protected route.
 	req.user = currentUser;
+	res.locals.user = currentUser;
 	next();
 });
 

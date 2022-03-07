@@ -40,3 +40,9 @@ exports.getLoginForm = (req, res) => {
 		title: "Log in",
 	});
 };
+/////////////////////////////////////////////////////////// GET ACCOUNT
+exports.getAccount = (req, res) => {
+	res.status(200).render("account", {
+		title: "Your account",
+	});
+};

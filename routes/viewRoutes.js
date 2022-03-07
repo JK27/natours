@@ -5,15 +5,15 @@ const authController = require("../controllers/authController");
 const router = express.Router();
 
 /////////////////////////////////////////////////////////// VIEW ROUTES
-// DOES => Cheks if there is a logged in user. Being at the top, it applies to all other routes after it.
-router.use(authController.isLoggedIn);
 //////////////////////////////////////////// OVERVIEW
-router.get("/", viewsController.getOverview);
+router.get("/", authController.isLoggedIn, viewsController.getOverview);
 //////////////////////////////////////////// TOUR
-router.get("/tour", viewsController.getTour);
+router.get("/tour", authController.isLoggedIn, viewsController.getTour);
 //////////////////////////////////////////// TOUR SLUG
-router.get("/tour/:slug", viewsController.getTour);
+router.get("/tour/:slug", authController.isLoggedIn, viewsController.getTour);
 //////////////////////////////////////////// LOG IN
-router.get("/login", viewsController.getLoginForm);
+router.get("/login", authController.isLoggedIn, viewsController.getLoginForm);
+//////////////////////////////////////////// GET ACCOUNT
+router.get("/me", authController.protect, viewsController.getAccount);
 
 module.exports = router;

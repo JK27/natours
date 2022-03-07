@@ -1,4 +1,4 @@
-19501
+19502
 120C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@parcel\package-manager\src\Yarn.js132910451950201048 0
 135C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\mapbox-gl\src\util\find_pole_of_inaccessibility.js132909690643294872 0
 93C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\saslprep132887883682342262 1
@@ -13,7 +13,7 @@
 116C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\caniuse-lite\data\regions\MP.js132910451938363744 0
 103C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\utility-types\dist132910451915722011 1
 127C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\caniuse-lite\data\features\css-any-link.js132910451927912667 0
-78C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\app.js132910498943288790 0
+78C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\app.js132911130356741855 0
 113C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\object.entries\test\index.js132887986617153544 0
 89C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\views\_footer.pug132907928756689506 0
 137C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint-import-resolver-node\node_modules\ms\index.js132887986615717657 0
@@ -60,7 +60,7 @@
 104C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\terser\package.json132910451923808655 0
 130C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\features\typed-array\group-by.js132887986112998983 0
 142C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\msgpackr-extract\prebuilds\darwin-x64\electron.abi98.node132910451912867074 0
-83C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\controllers132906945619002679 1
+83C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\controllers132910555058418981 1
 124C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\resolve\test\shadowed_core\node_modules132887986619463442 1
 134C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\internals\dom-exception-constants.js132887986101035715 0
 111C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@types\node\inspector.d.ts132887883676289979 0
@@ -164,7 +164,7 @@
 95C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\estraverse132887986088703704 1
 120C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\es\string\pad-start.js132887986119981658 0
 113C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\es-abstract\helpers\isNaN.js132887986103859533 0
-91C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\js\mapbox.js132910476294181192 0
+91C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\js\mapbox.js132910536870542373 0
 117C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\protocol-buffers-schema\parse.js132909690637207951 0
 95C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\yaml\types132910451921074020 1
 111C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\postcss-calc\src\__tests__132910451911042023 1
@@ -207,7 +207,7 @@
 122C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\mapbox-gl\src\render\glyph_manager.js132909690644267802 0
 110C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\bson\src\ensure_buffer.ts132887883692672190 0
 116C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\to-fast-properties\package.json132906162642246815 0
-90C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\js\login.js132910487622732664 0
+90C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\js\login.js132910529615868734 0
 110C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\validator\lib\isBase58.js132888976708193587 0
 128C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js\modules\es6.object.is-extensible.js132910474680833745 0
 101C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\is-number-object132887986090118937 1
@@ -239,7 +239,7 @@
 100C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\img\users\user-18.jpg132869822714792411 0
 101C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\fast-levenshtein132887986087803481 1
 131C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js\modules\es7.reflect.define-metadata.js132910474685385759 0
-77C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\views132909715669113691 1
+77C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\views132910540926205350 1
 141C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\mongoose\lib\helpers\update\applyTimestampsToChildren.js132887883676788007 0
 150C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint-plugin-react\node_modules\resolve\test\resolver\empty_main132887986620297845 1
 126C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\actual\number\parse-float.js132887986120100288 0
@@ -250,6 +250,20 @@
 101C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\msgpackr\LICENSE132910451909900667 0
 113C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\validator\lib\util\typeOf.js132888976711500612 0
 100C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\lodash\hasIn.js132900801921894663 0
+97C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\img\logo-green.png132869822697325819 0
+137C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@babel\runtime-corejs3\core-js-stable\parse-float.js132887986095032682 0
+104C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\rimraf\CHANGELOG.md132887986088359805 0
+113C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\mongoose\lib\queryhelpers.js132887883683649656 0
+116C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\caniuse-lite\data\regions\GB.js132910451933857039 0
+123C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\internals\regexp-flags.js132887986121150023 0
+105C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\ansi-regex\readme.md132887986087917468 0
+97C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\serve-static132882653213920186 1
+119C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\node-addon-api\tools\conversion.js132910451914862883 0
+106C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\.bin\browserslist.cmd132910452107266032 0
+130C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint-plugin-es\lib\rules\no-number-isnan.js132887986619134493 0
+139C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js\library\modules\es6.reflect.delete-property.js132910474681665455 0
+128C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\features\typed-array\reduce.js132887986121024399 0
+87C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\views\error.pug132911137621131632 0
 118C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint-plugin-import\lib\index.js132887986618016619 0
 105C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\electron-to-chromium132910451913747360 1
 138C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@babel\runtime-corejs3\helpers\esm\wrapNativeSuper.js132887986102664234 0
@@ -292,7 +306,7 @@
 121C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\prettier-linter-helpers\.eslintrc.js132887986616077353 0
 119C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@babel\runtime\helpers\decorate.js132887986093041387 0
 124C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\mapbox-gl\src\style-spec\util\extend.js132909690643008142 0
-98C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\js\bundled\index.js132910499867427588 0
+98C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\js\bundled\index.js132911117773846846 0
 133C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\protocol-buffers-schema\test\fixtures\enum.proto132909690639383582 0
 144C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\lmdb\dependencies\lmdb-data-v1\libraries\liblmdb\mdb_drop.c132910451921044773 0
 121C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\caniuse-lite\data\features\hidden.js132910451934577120 0
@@ -304,7 +318,7 @@
 104C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\text-table\index.js132887986087632112 0
 108C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\domutils\lib\index.d.ts132910451915382369 0
 108C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\type-check\lib\index.js132887986087691046 0
-90C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\js\index.js132910482715245618 0
+90C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\js\index.js132910524305018250 0
 93C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\inflight132887986087792433 1
 125C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\es-abstract\2020\ToPropertyDescriptor.js132887986111640404 0
 129C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\aria-query\lib\etc\roles\dpub\docPartRole.js132887986093871998 0
@@ -359,7 +373,7 @@
 110C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\validator\lib\isBase32.js132888976708173588 0
 125C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\mongodb\src\operations\list_databases.ts132887883681346238 0
 105C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\img\tours\tour-5-cover.jpg132869822706091509 0
-89C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\js\bundled132910499867514308 1
+89C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\js\bundled132911117773925479 1
 117C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\validator\lib\isVariableWidth.js132888976710979360 0
 128C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\caniuse-lite\data\features\iframe-srcdoc.js132910451934912969 0
 136C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@mapbox\jsonlint-lines-primitives\scripts\bundle.js132909690652921969 0
@@ -405,7 +419,7 @@
 113C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\mongodb\lib\encrypter.js.map132887883678678813 0
 99C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\lodash\noop.js132900801925164501 0
 126C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\stable\array\virtual\sort.js132887986123415327 0
-92C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\routes\userRoutes.js132910386555170184 0
+92C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\routes\userRoutes.js132910525146540807 0
 129C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\mapbox-gl\src\style-spec\util\interpolate.js132909690645370404 0
 140C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint-plugin-jsx-a11y\docs\rules\no-redundant-roles.md132887986098988335 0
 115C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@parcel\core\lib\serializer.js132910451954152917 0
@@ -442,7 +456,7 @@
 114C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\validator\es\lib\isDataURI.js132888976708556604 0
 109C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\nth-check\lib\compile.js132910451904706310 0
 105C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\lodash\toIterator.js132900801928707234 0
-102C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\js\bundled\index.js.map132910499867497696 0
+102C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\js\bundled\index.js.map132911117773909457 0
 101C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\img\tours\tour-6-3.jpg132869822707032863 0
 156C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint-plugin-react\node_modules\resolve\test\resolver\baz\package.json132887986620215898 0
 106C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\statuses\package.json132882653212114113 0
@@ -460,7 +474,6 @@
 109C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\validator\es\lib\isIn.js132888976709279813 0
 103C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\img\logo-green-round.png132869822696449373 0
 105C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\pug-linker\README.md132906162644880823 0
-97C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\public\img\logo-green.png132869822697325819 0
 107C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\jsonwebtoken\README.md132895671019169597 0
 113C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\validator\es\lib\stripLow.js132888976711241875 0
 151C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@parcel\node-resolver-core\test\fixture\node_modules\package-alias132910451935454461 1
@@ -1400,8 +1413,6 @@
 127C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint-plugin-es\lib\rules\no-math-sinh.js132887986618844802 0
 110C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\confusing-browser-globals132887986616217853 1
 120C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint\lib\rules\no-dupe-else-if.js132887986098334484 0
-130C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\caniuse-lite\data\features\abortcontroller.js132910451906028108 0
-95C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\stylehacks132910451915984697 1
 147C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@babel\runtime-corejs3\core-js-stable\reflect\is-extensible.js132887986095449560 0
 107C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\internal-slot\index.js132887986088576819 0
 132C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\lmdb\dependencies\lmdb\libraries\liblmdb\midl.c132910451924883037 0
@@ -1613,9 +1624,6 @@
 124C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\es-abstract\2021\IsBigIntElementType.js132887986102594957 0
 130C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\modules\es.math.to-string-tag.js132887986103739918 0
 91C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\earcut132909690638568595 1
-136C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\lmdb\dependencies\lmdb\libraries\liblmdb\mdb_load.c132910451921564379 0
-119C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\caniuse-lite\dist\lib\supported.js132910451941869969 0
-106C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\minimist\test\dash.js132887986616296748 0
 104C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\ecdsa-sig-formatter132895671018669269 1
 119C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\mapbox-gl\src\gl\cull_face_mode.js132909690642140755 0
 131C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint-plugin-jsx-a11y\lib\rules\aria-props.js132887986091600930 0
@@ -2721,14 +2729,6 @@
 87C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\rw132909690638636980 1
 105C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\on-finished\index.js132882653213542809 0
 97C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\safer-buffer132882653214296868 1
-137C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@babel\runtime-corejs3\core-js-stable\parse-float.js132887986095032682 0
-104C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\rimraf\CHANGELOG.md132887986088359805 0
-113C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\mongoose\lib\queryhelpers.js132887883683649656 0
-116C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\caniuse-lite\data\regions\GB.js132910451933857039 0
-123C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\internals\regexp-flags.js132887986121150023 0
-105C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\ansi-regex\readme.md132887986087917468 0
-97C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\serve-static132882653213920186 1
-119C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\node-addon-api\tools\conversion.js132910451914862883 0
 153C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@babel\runtime-corejs3\helpers\esm\classStaticPrivateFieldSpecGet.js132887986101457504 0
 103C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\acorn\package.json132887986089508988 0
 117C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\svgo\plugins\sortDefsChildren.js132910451925104323 0
@@ -2773,6 +2773,8 @@
 121C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\stable\set-immediate.js132887986122143635 0
 122C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\stable\function\index.js132887986115168429 0
 109C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\axe-core\locales\da.json132887986092109727 0
+130C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\caniuse-lite\data\features\abortcontroller.js132910451906028108 0
+95C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\stylehacks132910451915984697 1
 117C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\validator\es\lib\isPostalCode.js132888976710490332 0
 103C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\mquery\.travis.yml132887883680213082 0
 103C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\color-name\LICENSE132887986087630625 0
@@ -3018,6 +3020,13 @@
 142C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@babel\runtime-corejs3\core-js\reflect\delete-metadata.js132887986099389465 0
 106C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\with\lib\globals.d.ts132906162647076681 0
 107C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\yaml\browser\schema.js132910451918942876 0
+121C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\es-abstract\2021\AddToKeptObjects.js132887986093402037 0
+124C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\es\array\virtual\concat.js132887986099068269 0
+106C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\saslprep\CHANGELOG.md132887883676443298 0
+108C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\validator\lib\escape.js132888976707799886 0
+109C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\pug-filters\CHANGELOG.md132906162645214532 0
+115C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@mapbox\unitbezier\.travis.yml132909690643492715 0
+122C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\tsconfig-paths\lib\tsconfig-loader.js132887986618172414 0
 104C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\yaml\browser\seq.js132910451920276533 0
 123C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\es\typed-array\entries.js132887986101807941 0
 121C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\lodash\_createRelationalOperation.js132900801915424844 0
@@ -3027,13 +3036,6 @@
 126C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\mongodb\src\operations\find_and_modify.ts132887883681066656 0
 108C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\flat-cache\changelog.md132887986088803544 0
 122C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\utility-types\dist\utility-types.d.ts132910451915754035 0
-121C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\es-abstract\2021\AddToKeptObjects.js132887986093402037 0
-124C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\es\array\virtual\concat.js132887986099068269 0
-106C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\saslprep\CHANGELOG.md132887883676443298 0
-108C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\validator\lib\escape.js132888976707799886 0
-109C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\pug-filters\CHANGELOG.md132906162645214532 0
-115C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@mapbox\unitbezier\.travis.yml132909690643492715 0
-122C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\tsconfig-paths\lib\tsconfig-loader.js132887986618172414 0
 112C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\language-tags\lib\Subtag.js132887986088797047 0
 113C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\es\parse-int.js132887986120225366 0
 130C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\caniuse-lite\data\features\x-frame-options.js132910451944422637 0
@@ -4863,7 +4865,6 @@
 113C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\strip-json-comments\index.js132887986087249648 0
 126C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js\library\modules\es6.array.join.js132910474677170590 0
 114C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\strip-json-comments\readme.md132887986087990417 0
-102C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\react-is\index.js132887986616042233 0
 131C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js\modules\es6.reflect.define-property.js132910474681646604 0
 106C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\strip-ansi\index.d.ts132887986088306964 0
 142C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\msgpackr-extract\prebuilds\linux-x64\node.abi83.musl.node132910451925031010 0
@@ -5759,6 +5760,7 @@
 107C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@types\node\dgram.d.ts132887883674038447 0
 114C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint\lib\rules\use-isnan.js132887986103108635 0
 142C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\react-refresh\cjs\react-refresh-runtime.production.min.js132910451912731789 0
+102C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\react-is\index.js132887986616042233 0
 122C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\mapbox-gl\src\symbol\opacity_state.js132909690648216631 0
 101C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\react-is\LICENSE132887986616231125 0
 118C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\es\weak-map\index.js132887986114644181 0
@@ -7101,10 +7103,10 @@
 109C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\path-exists\package.json132887986615680999 0
 106C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\path-exists\readme.md132887986616236307 0
 132C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\es-abstract\2018\CanonicalNumericIndexString.js132887986096064857 0
-140C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint-plugin-es\lib\rules\no-rest-spread-properties.js132887986620348897 0
-102C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\parseurl\index.js132882653213049633 0
-117C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js\library\fn\date\index.js132910474689955083 0
 104C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\lodash\fp\reject.js132900801926697851 0
+102C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\parseurl\index.js132882653213049633 0
+140C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint-plugin-es\lib\rules\no-rest-spread-properties.js132887986620348897 0
+117C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js\library\fn\date\index.js132910474689955083 0
 103C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\parseurl\README.md132882653213763753 0
 112C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\lodash.memoize\package.json132910451904042281 0
 135C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\mapbox-gl\src\style-spec\error\validation_error.js132909690651025469 0
@@ -8504,6 +8506,9 @@
 133C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\caniuse-lite\data\features\speech-recognition.js132910451941640687 0
 120C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@types\webidl-conversions\README.md132887883673360107 0
 106C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\minimist\test\bool.js132887986616125701 0
+136C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\lmdb\dependencies\lmdb\libraries\liblmdb\mdb_load.c132910451921564379 0
+119C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\caniuse-lite\dist\lib\supported.js132910451941869969 0
+106C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\minimist\test\dash.js132887986616296748 0
 114C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\lodash\fp\templateSettings.js132900801928424939 0
 114C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\minimist\test\default_bool.js132887986616427434 0
 104C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\feature-policy\dist132909692611670236 1
@@ -12342,9 +12347,6 @@
 128C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint-plugin-es\lib\rules\no-new-target.js132887986618975234 0
 110C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@parcel\core\lib\requests132910451954864835 1
 132C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint-plugin-es\lib\rules\no-number-epsilon.js132887986619019091 0
-106C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\.bin\browserslist.cmd132910452107266032 0
-130C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint-plugin-es\lib\rules\no-number-isnan.js132887986619134493 0
-139C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js\library\modules\es6.reflect.delete-property.js132910474681665455 0
 138C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint-plugin-es\lib\rules\no-number-issafeinteger.js132887986619161588 0
 123C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\actual\queue-microtask.js132887986120498811 0
 139C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\eslint-plugin-es\lib\rules\no-number-maxsafeinteger.js132887986619196527 0
@@ -13326,7 +13328,7 @@
 126C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\caniuse-lite\data\features\blobbuilder.js132910451924883037 0
 118C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\es-abstract\2020\UnicodeEscape.js132887986112559873 0
 118C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\es-abstract\2020\UTF16Encoding.js132887986112802853 0
-102C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\controllers\viewsController.js132909717745429464 0
+102C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\controllers\viewsController.js132911155418679863 0
 125C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\features\typed-array\map.js132887986118334672 0
 103C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\bcryptjs\README.md132894979809991172 0
 112C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\es-abstract\2020\WeekDay.js132887986113038231 0
@@ -13428,7 +13430,6 @@
 124C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\es-abstract\2019\OrdinaryToPrimitive.js132887986107293275 0
 119C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\es-abstract\2019\PromiseResolve.js132887986107367063 0
 129C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\caniuse-lite\data\features\object-observe.js132910451939066896 0
-132C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\aria-query\lib\etc\roles\abstract\windowRole.js132887986096861175 0
 117C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\es-abstract\2019\RegExpCreate.js132887986107558918 0
 127C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\es-abstract\2019\RequireObjectCoercible.js132887986107830511 0
 114C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\es-abstract\2019\SameValue.js132887986107899459 0
@@ -15275,7 +15276,6 @@
 130C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\features\typed-array\iterator.js132887986116905302 0
 136C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\caniuse-lite\data\features\constraint-validation.js132910451927559234 0
 124C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\features\typed-array\of.js132887986119587558 0
-128C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\features\typed-array\reduce.js132887986121024399 0
 129C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\features\typed-array\reverse.js132887986121807558 0
 126C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\features\typed-array\some.js132887986123209246 0
 130C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\core-js-pure\features\typed-array\subarray.js132887986124528642 0
@@ -17645,6 +17645,7 @@
 123C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\@babel\runtime\helpers\esm\defaults.js132887986094785091 0
 132C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\aria-query\lib\etc\roles\abstract\selectRole.js132887986096164814 0
 135C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\aria-query\lib\etc\roles\abstract\structureRole.js132887986096330569 0
+132C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\aria-query\lib\etc\roles\abstract\windowRole.js132887986096861175 0
 105C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\argparse\argparse.js132887986087962871 0
 106C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\argparse\CHANGELOG.md132887986089386701 0
 101C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\node_modules\argparse\LICENSE132887986086830394 0
@@ -19496,7 +19497,7 @@
 99C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\dev-data\img\new-tour-4.jpg132869822692358349 0
 98C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\dev-data\data\reviews.json132869822688339735 0
 94C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\dev-data\data\tour5.js132869822688583227 0
-101C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\controllers\authController.js132910442300004633 0
-102C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\controllers\errorController.js132895740403950179 0
+101C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\controllers\authController.js132910530333899142 0
+102C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\controllers\errorController.js132911157299136984 0
 101C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\controllers\tourController.js132902737672947296 0
 101C:\Users\jcarl\OneDrive\complete-node-bootcamp-master\4-natours\starter\controllers\userController.js132910374945883055 0
