@@ -148,7 +148,7 @@ var _mapbox = require("./mapbox");
 var _login = require("./login");
 /////////////////////////////////////////////////////////// DOM ELEMENTS
 const mapBox = document.getElementById("map");
-const loginForm = document.querySelector(".form");
+const loginForm = document.querySelector(".form--login");
 const logOutBtn = document.querySelector(".nav__el--logout");
 /////////////////////////////////////////////////////////// DISPLAY MAP
 if (mapBox) {
@@ -7314,10 +7314,11 @@ const login = async (email, password)=>{
                 password
             }
         });
+        // DOES => If log in is successful, then redirect to account page.
         if (res.data.status === "success") {
             _alerts.showAlert("success", "Logged in successfully.");
             window.setTimeout(()=>{
-                location.assign("/");
+                location.assign("/me");
             }, 1500);
         }
     } catch (err) {
@@ -7330,11 +7331,11 @@ const logout = async ()=>{
             method: "GET",
             url: "http://127.0.0.1:8000/api/v1/users/logout"
         });
-        // DOES => If logged out successfully, then force a reload from the server.
+        // DOES => If logged out successfully, then force a reload from the server, redirecting to the overview template.
         if (res.data.status === "success") {
             _alerts.showAlert("success", "Logged out successfully.");
             window.setTimeout(()=>{
-                location.reload(true);
+                location.assign("/");
             }, 1000);
         }
     } catch (err) {

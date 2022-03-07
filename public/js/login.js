@@ -9,11 +9,11 @@ export const login = async (email, password) => {
 			url: "http://127.0.0.1:8000/api/v1/users/login",
 			data: { email, password },
 		});
-
+		// DOES => If log in is successful, then redirect to account page.
 		if (res.data.status === "success") {
 			showAlert("success", "Logged in successfully.");
 			window.setTimeout(() => {
-				location.assign("/");
+				location.assign("/me");
 			}, 1500);
 		}
 	} catch (err) {
@@ -28,11 +28,11 @@ export const logout = async () => {
 			method: "GET",
 			url: "http://127.0.0.1:8000/api/v1/users/logout",
 		});
-		// DOES => If logged out successfully, then force a reload from the server.
+		// DOES => If logged out successfully, then force a reload from the server, redirecting to the overview template.
 		if (res.data.status === "success") {
 			showAlert("success", "Logged out successfully.");
 			window.setTimeout(() => {
-				location.reload(true);
+				location.assign("/");
 			}, 1000);
 		}
 	} catch (err) {

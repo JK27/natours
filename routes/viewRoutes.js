@@ -15,5 +15,11 @@ router.get("/tour/:slug", authController.isLoggedIn, viewsController.getTour);
 router.get("/login", authController.isLoggedIn, viewsController.getLoginForm);
 //////////////////////////////////////////// GET ACCOUNT
 router.get("/me", authController.protect, viewsController.getAccount);
+//////////////////////////////////////////// UPDATE USER DATA
+router.post(
+	"/submit-user-data",
+	authController.protect,
+	viewsController.updateUserData
+);
 
 module.exports = router;
