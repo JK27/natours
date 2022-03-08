@@ -21,6 +21,8 @@ router.get("/tour/:slug", authController.isLoggedIn, viewsController.getTour);
 router.get("/login", authController.isLoggedIn, viewsController.getLoginForm);
 //////////////////////////////////////////// GET ACCOUNT
 router.get("/me", authController.protect, viewsController.getAccount);
+//////////////////////////////////////////// GET MY TOURS
+router.get("/my-tours", authController.protect, viewsController.getMyTours);
 //////////////////////////////////////////// UPDATE USER DATA
 router.post(
 	"/submit-user-data",

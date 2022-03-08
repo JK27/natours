@@ -38,6 +38,7 @@ bookingSchema.pre(/^find/, function (next) {
 		path: "tour",
 		select: "name",
 	});
+	next();
 });
 
 // DOES => Creates a booking model following bookingSchema.
