@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
 	////////////////////////////////////////// NAME
 	name: {
 		type: String,
-		// DOES => Sets property as required and adds error message if false
+		// DOES = > Sets property as required and adds error message if false
 		required: [true, "User must have a name"],
 		trim: true,
 	},
@@ -24,6 +24,7 @@ const userSchema = new mongoose.Schema({
 	////////////////////////////////////////// PHOTO
 	photo: {
 		type: String,
+		default: "default.jpg",
 	},
 	////////////////////////////////////////// ROLE
 	role: {
@@ -46,7 +47,7 @@ const userSchema = new mongoose.Schema({
 		minlength: 8,
 		trim: true,
 		validate: {
-			// NOTE => Only works on CREATE and SAVE!!!
+			// NOTE    =>  Only works on CREATE and SAVE!!!
 			validator: function (el) {
 				return el === this.password;
 			},

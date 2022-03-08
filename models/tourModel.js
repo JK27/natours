@@ -7,10 +7,10 @@ const tourSchema = new mongoose.Schema(
 		////////////////////////////////////////// NAME
 		name: {
 			type: String,
-			// DOES => Sets property as required and adds error message if false.
+			// DOES  = > Sets property as required and adds error message if false.
 			required: [true, "Tour must have a name"],
 			unique: true,
-			// DOES => Removes white space at begining and end of string.
+			// DOES  = > Removes white space at begining and end of string.
 			trim: true,
 			minlength: [10, "Tour name must be at least 10 characters long"],
 			maxlength: [40, "Tour name must be less than 40 characters long"],
@@ -62,7 +62,7 @@ const tourSchema = new mongoose.Schema(
 			type: Number,
 			validate: {
 				validator: function (value) {
-					// NOTE => this only points to current doc on NEW document creation.
+					// NOTE = > this only points to current doc on NEW document creation.
 					return value < this.price;
 				},
 				message: "Discount price ({VALUE}) must be lower than regular price",

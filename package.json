@@ -30,6 +30,7 @@
 		"mapbox-gl": "^2.7.0",
 		"mongoose": "^6.2.1",
 		"morgan": "^1.10.0",
+		"multer": "^1.4.4",
 		"nodemailer": "^6.7.2",
 		"pug": "^3.0.2",
 		"slugify": "^1.6.5",

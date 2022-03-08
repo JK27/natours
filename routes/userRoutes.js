@@ -26,7 +26,11 @@ router.get(
 	userController.getMe,
 	userController.getUserById
 );
-router.patch("/updateMe", userController.updateMe);
+router.patch(
+	"/updateMe",
+	userController.uploadUserPhoto,
+	userController.updateMe
+);
 router.delete("/deleteMe", userController.deleteMe);
 
 // DOES => Restricts access to all routes below only for admin users.

@@ -121,7 +121,6 @@ app.use(
 // DOES => Adds middleware that can modify incoming request data, enabling reading data from the body of the request.
 app.use((req, res, next) => {
 	req.requestTime = new Date().toISOString();
-	console.log(req.cookies);
 	next();
 });
 

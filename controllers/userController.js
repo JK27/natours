@@ -1,7 +1,40 @@
+const multer = require("multer");
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const factory = require("./handlerFactory");
+
+/////////////////////////////////////////////////////////// MULTER
+//////////////////////////////////////////// STORAGE
+// DOES => Indicates the destination folder for the uploaded files and gives the file a name based on the user id, timestamp and file extension.
+const multerStorage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, "public/img/users");
+	},
+	filename: (req, file, cb) => {
+		const ext = file.mimetype.split("/")[1];
+		cb(null, `user-${req.user.id}-${Date.now()}.${ext}`);
+	},
+});
+
+//////////////////////////////////////////// FILTER
+// DOES => Tests if uploaded file is an image, passing true or false to the callback function. If false, throws 400 error as only images are allowed.
+const multerFilter = (req, file, cb) => {
+	if (file.mimetype.startsWith("image")) {
+		cb(null, true);
+	} else {
+		cb(new AppError("Not an image. Please upload only images.", 400), false);
+	}
+};
+
+//////////////////////////////////////////// UPLOAD
+const upload = multer({
+	storage: multerStorage,
+	fileFilter: multerFilter,
+});
+
+// DOES => Allows for only one single file to be uploaded at a time.
+exports.uploadUserPhoto = upload.single("photo");
 
 /////////////////////////////////////////////////////////// FILTER OBJECT
 const filterObj = (obj, ...allowedFields) => {
@@ -43,8 +76,9 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 			)
 		);
 	}
-	// DOES => 2) ..filter out fields that are not to be updated...
+	// DOES => 2) ..filter out unwanted fields that are not to be updated...
 	const filteredBody = filterObj(req.body, "name", "email");
+	if (req.file) filteredBody.photo = req.file.filename;
 	// DOES => 3) ... and updates the user document.
 	const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
 		new: true,
