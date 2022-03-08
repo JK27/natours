@@ -41,19 +41,19 @@ const upload = multer({
 // DOES => Allows for only one single file to be uploaded at a time.
 exports.uploadUserPhoto = upload.single("photo");
 
-exports.resizeUserPhoto = (req, res, next) => {
+exports.resizeUserPhoto = catchAsync(async (req, res, next) => {
 	if (!req.file) return next();
 	// DOES => Changes the file name based on the user id, timestamp and file extension.
 	req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
 	// DOES => Crops image into a square, formats to jpeg file, reduces quality for compression and saves image into specified folder.
-	sharp(req.file.buffer)
+	await sharp(req.file.buffer)
 		.resize(500, 500)
 		.toFormat("jpeg")
 		.jpeg({ quality: 90 })
 		.toFile(`public/img/users/${req.file.filename}`);
 
 	next();
-};
+});
 
 /////////////////////////////////////////////////////////// FILTER OBJECT
 const filterObj = (obj, ...allowedFields) => {
