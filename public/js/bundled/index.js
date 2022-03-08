@@ -147,12 +147,14 @@ var _polyfill = require("@babel/polyfill");
 var _mapbox = require("./mapbox");
 var _login = require("./login");
 var _updateSettings = require("./updateSettings");
+var _stripe = require("./stripe");
 /////////////////////////////////////////////////////////// DOM ELEMENTS
 const mapBox = document.getElementById("map");
 const loginForm = document.querySelector(".form--login");
 const logOutBtn = document.querySelector(".nav__el--logout");
 const userDataForm = document.querySelector(".form-user-data");
 const userPasswordForm = document.querySelector(".form-user-password");
+const bookBtn = document.getElementById("book-tour");
 /////////////////////////////////////////////////////////// DISPLAY MAP
 if (mapBox) {
     const locations = JSON.parse(mapBox.dataset.locations);
@@ -198,8 +200,15 @@ if (userPasswordForm) userPasswordForm.addEventListener("submit", async (e)=>{
     document.getElementById("password").value = "";
     document.getElementById("password-confirm").value = "";
 });
+//////////////////////////////////////////// BOOK TOUR
+// DOES => When the bookBtn is clicked, first changes the text content and gets tourId data stored in the button element and then calls bookTour on the tour matching that ID.
+if (bookBtn) bookBtn.addEventListener("click", (e)=>{
+    e.target.textContent = "Processing...";
+    const tourId = e.target.dataset.tourId;
+    _stripe.bookTour(tourId);
+});
 
-},{"@babel/polyfill":"dTCHC","./mapbox":"3zDlz","./login":"7yHem","./updateSettings":"l3cGY"}],"dTCHC":[function(require,module,exports) {
+},{"@babel/polyfill":"dTCHC","./mapbox":"3zDlz","./login":"7yHem","./updateSettings":"l3cGY","./stripe":"10tSC"}],"dTCHC":[function(require,module,exports) {
 "use strict";
 require("./noConflict");
 var _global = _interopRequireDefault(require("core-js/library/fn/global"));
@@ -8977,6 +8986,28 @@ const updateSettings = async (data, type)=>{
     }
 };
 
-},{"axios":"jo6P5","./alerts":"6Mcnf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["f2QDv"], "f2QDv", "parcelRequire11c7")
+},{"axios":"jo6P5","./alerts":"6Mcnf","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"10tSC":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "bookTour", ()=>bookTour
+);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _alerts = require("./alerts");
+const stripe = undefined;
+const bookTour = async (tourId)=>{
+    try {
+        // DOES => 1) Gets checkout session from the server.
+        const session = await _axiosDefault.default(`http://127.0.0.1:8000/api/v1/bookings/checkout-session/${tourId}`);
+        console.log(session);
+        // DOES => 2) Create checkout form  and charge credit card.
+        window.location.replace(session.data.session.url);
+    } catch (err) {
+        console.log(err);
+        _alerts.showAlert("error", err);
+    }
+};
+
+},{"axios":"jo6P5","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./alerts":"6Mcnf"}]},["f2QDv"], "f2QDv", "parcelRequire11c7")
 
 //# sourceMappingURL=index.js.map
