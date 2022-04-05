@@ -60,7 +60,6 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 	// DOES => Sends welcome email to the new user.
 	const url = `${req.protocol}://${req.get("host")}/me`;
-	console.log(url);
 	await new Email(newUser, url).sendWelcome();
 
 	// DOES => Automatically logs in user after signing up.

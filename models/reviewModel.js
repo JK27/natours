@@ -74,7 +74,6 @@ reviewSchema.statics.calcAverageRatings = async function (tourId) {
 			},
 		},
 	]);
-	console.log(stats);
 
 	// DOES => Updates the ratingsQuantity and ratingsAverage fields for that tour. If there is no reviews for that tour - only review has been deleted - then return to the default values.
 	if (stats.length > 0) {
