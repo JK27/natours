@@ -35,3 +35,12 @@ process.on("unhandledRejection", err => {
 		process.exit(1);
 	});
 });
+
+/////////////////////////////////////////////////////////// SIGTERM
+// DOES => Cleans up all pending requests before exiting the application.
+process.on("SIGTERM", () => {
+	console.log("SIGTERM received. Shutting down gracefully 📴");
+	server.close(() => {
+		console.log("💥 Process terminated!");
+	});
+});
