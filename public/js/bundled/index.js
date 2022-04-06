@@ -7344,10 +7344,11 @@ var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _alerts = require("./alerts");
 const login = async (email, password)=>{
+    const url = "/api/v1/users/login";
     try {
         const res = await _axiosDefault.default({
             method: "POST",
-            url: "http://127.0.0.1:8000/api/v1/users/login",
+            url,
             data: {
                 email,
                 password
@@ -7365,10 +7366,11 @@ const login = async (email, password)=>{
     }
 };
 const logout = async ()=>{
+    const url = "/api/v1/users/logout";
     try {
         const res = await _axiosDefault.default({
             method: "GET",
-            url: "http://127.0.0.1:8000/api/v1/users/logout"
+            url
         });
         // DOES => If logged out successfully, then force a reload from the server, redirecting to the overview template.
         if (res.data.status === "success") {
@@ -8973,7 +8975,7 @@ var _alerts = require("./alerts");
 const updateSettings = async (data, type)=>{
     try {
         // DOES => If the type is password, it uses /updateMyPassword. Otherwise, it uses /updateMe.
-        const url = type === "password" ? "http://127.0.0.1:8000/api/v1/users/updateMyPassword" : "http://127.0.0.1:8000/api/v1/users/updateMe";
+        const url = type === "password" ? "/api/v1/users/updateMyPassword" : "/api/v1/users/updateMe";
         const res = await _axiosDefault.default({
             method: "PATCH",
             url: url,
@@ -8995,9 +8997,10 @@ var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _alerts = require("./alerts");
 const stripe = undefined;
 const bookTour = async (tourId)=>{
+    const url = `/api/v1/bookings/checkout-session/${tourId}`;
     try {
         // DOES => 1) Gets checkout session from the server.
-        const session = await _axiosDefault.default(`http://127.0.0.1:8000/api/v1/bookings/checkout-session/${tourId}`);
+        const session = await _axiosDefault.default(url);
         // DOES => 2) Create checkout form  and charge credit card.
         // await stripe.redirectToCheckout({ sessionId: session.data.session.id });
         window.location.replace(session.data.session.url);

@@ -3,10 +3,11 @@ import { showAlert } from "./alerts";
 
 /////////////////////////////////////////////////////////// LOG IN
 export const login = async (email, password) => {
+	const url = "/api/v1/users/login";
 	try {
 		const res = await axios({
 			method: "POST",
-			url: "http://127.0.0.1:8000/api/v1/users/login",
+			url,
 			data: { email, password },
 		});
 		// DOES => If log in is successful, then redirect to account page.
@@ -23,10 +24,11 @@ export const login = async (email, password) => {
 
 /////////////////////////////////////////////////////////// LOG OUT
 export const logout = async () => {
+	const url = "/api/v1/users/logout";
 	try {
 		const res = await axios({
 			method: "GET",
-			url: "http://127.0.0.1:8000/api/v1/users/logout",
+			url,
 		});
 		// DOES => If logged out successfully, then force a reload from the server, redirecting to the overview template.
 		if (res.data.status === "success") {
