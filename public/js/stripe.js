@@ -5,9 +5,12 @@ const stripe = process.env.STRIPE_PUBLIC_KEY;
 export const bookTour = async tourId => {
 	try {
 		// DOES => 1) Gets checkout session from the server.
-		const session = await axios(`/api/v1/bookings/checkout-session/${tourId}`);
+		const session = await axios(
+			`http://127.0.0.1:8000/api/v1/bookings/checkout-session/${tourId}`
+		);
 		// DOES => 2) Create checkout form  and charge credit card.
 		// await stripe.redirectToCheckout({ sessionId: session.data.session.id });
+
 		window.location.replace(session.data.session.url);
 	} catch (err) {
 		console.log(err);

@@ -7,7 +7,6 @@ const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
 const cookieParser = require("cookie-parser");
-const compression = require("compression");
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
@@ -118,9 +117,6 @@ app.use(
 		],
 	})
 );
-
-//////////////////////////////////////////// COMPRESSION MIDDLEWARE
-app.use(compression());
 
 //////////////////////////////////////////// TEST MIDDLEWARE
 // DOES => Adds middleware that can modify incoming request data, enabling reading data from the body of the request.
