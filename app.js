@@ -7,6 +7,7 @@ const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
@@ -26,6 +27,11 @@ app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
 /////////////////////////////////////////////////////////// GLOBAL MIDDLEWARES
+//////////////////////////////////////////// IMPLEMENT CORS
+// DOES => Sets Access-Control-Allow-Origin to everything, reagardless of where the request came from, allowing cross origin requests
+app.use(cors());
+
+app.options("*", cors());
 //////////////////////////////////////////// EXPRESS STATIC
 // DOES => Serves static files.
 app.use(express.static(path.join(__dirname, "public")));

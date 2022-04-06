@@ -21,6 +21,7 @@
 		"axios": "^0.26.0",
 		"bcryptjs": "^2.4.3",
 		"cookie-parser": "^1.4.6",
+		"cors": "^2.8.5",
 		"dotenv": "^16.0.0",
 		"express": "^4.17.2",
 		"express-mongo-sanitize": "^2.2.0",
@@ -54,6 +55,6 @@
 		"process": "^0.11.10"
 	},
 	"engines": {
-		"node": ">=10.0.0"
+		"node": "^16"
 	}
 }
