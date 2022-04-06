@@ -14,19 +14,18 @@ const signToken = id => {
 };
 
 /////////////////////////////////////////////////////////// CREATE SEND TOKEN
-const createSendToken = (user, statusCode, res) => {
+const createSendToken = (user, statusCode, req, res) => {
 	const token = signToken(user._id);
 	////////////////////////////////////////// COOKIES
-	const cookieOptions = {
+	res.cookie("jwt", token, {
 		expires: new Date(
 			Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
 		),
 		httpOnly: true, // Avoids browser to be able to access or modify cookies.
-	};
-	// DOES => Cookie will only be sent in secure sessions.
-	if (process.env.NODE_ENV === "production") cookieOptions.secure = true;
+		// DOES => Cookie will only be sent in secure connections when in production mode.);
+		secure: req.secure || req.headers["x-forwarded-proto"] === "https",
+	});
 
-	res.cookie("jwt", token, cookieOptions);
 	// DOES => Removes password from the output.
 	user.password = undefined;
 
@@ -63,7 +62,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 	await new Email(newUser, url).sendWelcome();
 
 	// DOES => Automatically logs in user after signing up.
-	createSendToken(newUser, 201, res);
+	createSendToken(newUser, 201, req, res);
 });
 
 /////////////////////////////////////////////////////////// LOG IN USER
@@ -82,7 +81,7 @@ exports.login = catchAsync(async (req, res, next) => {
 		return next(new AppError("Incorrect email or password", 401));
 	}
 	// DOES => ... then send token to the client.
-	createSendToken(user, 200, res);
+	createSendToken(user, 200, req, res);
 });
 
 /////////////////////////////////////////////////////////// LOG OUT
@@ -239,7 +238,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 	// DOES => 3) ... updates passwordChangedAt property...
 
 	// DOES => 4) ... logs user in and sends JWT.
-	createSendToken(user, 200, res);
+	createSendToken(user, 200, req, res);
 });
 
 /////////////////////////////////////////////////////////// UPDATE PASSWORD MIDDLEWARE
@@ -255,5 +254,5 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 	user.passwordConfirm = req.body.passwordConfirm;
 	await user.save();
 	// DOES => 4) ... and logs in user and sends JWT.
-	createSendToken(user, 200, res);
+	createSendToken(user, 200, req, res);
 });

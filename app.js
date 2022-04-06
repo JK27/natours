@@ -18,6 +18,8 @@ const viewRouter = require("./routes/viewRoutes");
 
 const app = express();
 
+app.enable("trust proxy");
+
 /////////////////////////////////////////////////////////// TEMPLATE ENGINE
 // DOES => Sets 'pug' as the template engine.
 app.set("view engine", "pug");
