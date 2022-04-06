@@ -7,12 +7,7 @@ const router = express.Router();
 
 /////////////////////////////////////////////////////////// VIEW ROUTES
 //////////////////////////////////////////// OVERVIEW
-router.get(
-	"/",
-	bookingController.createBookingCheckout,
-	authController.isLoggedIn,
-	viewsController.getOverview
-);
+router.get("/", authController.isLoggedIn, viewsController.getOverview);
 //////////////////////////////////////////// TOUR
 router.get("/tour", authController.isLoggedIn, viewsController.getTour);
 //////////////////////////////////////////// TOUR SLUG
