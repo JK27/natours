@@ -1,9 +1,12 @@
 import "@babel/polyfill";
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 import { displayMap } from "./mapbox";
 import { login } from "./login";
 import { logout } from "./login";
 import { updateSettings } from "./updateSettings";
 import { bookTour } from "./stripe";
+import { showAlert } from "./alerts";
 
 /////////////////////////////////////////////////////////// DOM ELEMENTS
 const mapBox = document.getElementById("map");
@@ -75,3 +78,7 @@ if (bookBtn)
 		const tourId = e.target.dataset.tourId;
 		bookTour(tourId);
 	});
+
+//////////////////////////////////////////// ALERT MESSAGE
+const alertMessage = document.querySelector("body").dataset.alert;
+if (alertMessage) showAlert("success", alertMessage, 20);
