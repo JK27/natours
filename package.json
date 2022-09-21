@@ -7,13 +7,12 @@
 		"main": false
 	},
 	"scripts": {
-		"start": "nodemon server.js",
-		"start:prod": "SET NODE_ENV=production&& nodemon app.js",
+		"start": "node server.js",
+		"dev": "nodemon server.js",
+		"start:prod": "NODE_ENV=production nodemon server.js",
 		"debug": "ndb server.js",
-		"compile:sass": "node-sass sass/main.scss public/css/style.css -w",
-		"prefix:css": "postcss --use autoprefixer -b 'last 10 versions' public/css/style.comp.css -o public/css/style.prefix.css",
-		"compress:css": "node-sass public/css/style.prefix.css public/css/style.css --output-style compressed",
-		"build:css": "npm-run-all compile:sass prefix:css compress:css"
+		"watch:js": "parcel watch ./public/js/index.js --out-dir ./public/js --out-file bundle.js",
+		"build:js": "parcel build ./public/js/index.js --out-dir ./public/js --out-file bundle.js"
 	},
 	"author": "",
 	"license": "ISC",
@@ -44,6 +43,7 @@
 		"xss-clean": "^0.1.1"
 	},
 	"devDependencies": {
+		"@types/core-js": "^2.5.5",
 		"cross-env": "^7.0.3",
 		"eslint": "^8.8.0",
 		"eslint-config-airbnb": "^19.0.4",
@@ -52,7 +52,7 @@
 		"eslint-plugin-node": "^11.1.0",
 		"eslint-plugin-prettier": "^4.0.0",
 		"eslint-plugin-react": "^7.28.0",
-		"parcel": "^2.3.2",
+		"parcel-bundler": "^1.12.5",
 		"process": "^0.11.10"
 	},
 	"engines": {
