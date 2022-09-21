@@ -10,7 +10,7 @@ process.on("uncaughtException", err => {
 });
 
 /////////////////////////////////////////////////////////// DOTENV
-dotenv.config({ path: "./config.env" });
+dotenv.config({path: "./config.env"});
 const app = require("./app");
 
 /////////////////////////////////////////////////////////// MONGOOSE

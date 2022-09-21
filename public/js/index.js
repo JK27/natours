@@ -1,12 +1,11 @@
-// import "@babel/polyfill";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import { displayMap } from "./mapbox";
-import { login } from "./login";
-import { logout } from "./login";
-import { updateSettings } from "./updateSettings";
-import { bookTour } from "./stripe";
-import { showAlert } from "./alerts";
+import {displayMap} from "./mapbox";
+import {login} from "./login";
+import {logout} from "./login";
+import {updateSettings} from "./updateSettings";
+import {bookTour} from "./stripe";
+import {showAlert} from "./alerts";
 
 /////////////////////////////////////////////////////////// DOM ELEMENTS
 const mapBox = document.getElementById("map");
@@ -59,7 +58,7 @@ if (userPasswordForm)
 		const password = document.getElementById("password").value;
 		const passwordConfirm = document.getElementById("password-confirm").value;
 		await updateSettings(
-			{ passwordCurrent, password, passwordConfirm },
+			{passwordCurrent, password, passwordConfirm},
 			"password"
 		);
 
