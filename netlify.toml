@@ -1,0 +1,9 @@
+[build]
+  command = ""
+  publish = "/public"
+  base = "/"
+
+[[redirects]]
+  form = "/*"
+  to = "/public/overview.html"
+  status = 200
