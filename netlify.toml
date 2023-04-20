@@ -1,9 +1,0 @@
-[build]
-  command = ""
-  publish = "/public"
-  base = "/"
-
-[[redirects]]
-  form = "/*"
-  to = "/overview.html"
-  status = 200
