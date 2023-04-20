@@ -1,0 +1,4 @@
+{
+	"appService.defaultWebAppToDeploy": "/subscriptions/155d99f8-d528-4442-a38f-ba2525132d53/AppServices/subscriptions/155d99f8-d528-4442-a38f-ba2525132d53/resourceGroups/natours/providers/Microsoft.Web/sites/natours-jk27",
+	"appService.deploySubpath": "."
+}
